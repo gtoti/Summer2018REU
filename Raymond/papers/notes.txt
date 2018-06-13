@@ -1,0 +1,18 @@
+
+Glass transition Temperature:
+    -> An amporphous solid is said to be a glass if it exhibits a property of being hard and brittle below a material specific temperature T and more rubbery and plyable above temperature T. This temperature T is known as its glass transition temperature where the material's property transitions from a glass like solid state to a more liquid state. 
+
+
+Surface Tension
+    -> Inside a liquid 
+
+
+Wetting
+    -> Wetting is the phenomena of 
+
+
+Summary
+Ideal process
+    -> result, applications
+What can go wrong
+Current knowledge
