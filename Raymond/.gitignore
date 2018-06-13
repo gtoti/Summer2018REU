@@ -1,5 +1,4 @@
-venv/*
-venv/
+src/venv/*
 summary/*
 !summary/*.pdf
 !summary/*.tex
