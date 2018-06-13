@@ -1,0 +1,3 @@
+venv/*
+summary/*
+!summary/*.pdf
