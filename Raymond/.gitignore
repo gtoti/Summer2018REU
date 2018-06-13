@@ -1,5 +1,7 @@
 src/venv/*
 summary/*
 !summary/*.pdf
+!summary/*.png
+!summary/*.jpg
 !summary/*.tex
 !summary/*.bib
