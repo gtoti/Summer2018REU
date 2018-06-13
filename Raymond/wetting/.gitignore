@@ -1,3 +1,5 @@
 venv/*
 summary/*
 !summary/*.pdf
+!summary/*.tex
+!summary/*.bib
