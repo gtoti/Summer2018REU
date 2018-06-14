@@ -1,15 +1,18 @@
 
-image_names = dir('images');
+image_names = dir('../sample_images');
 image_names = image_names(3:end);
 
 imhisteq = zeros(512*10, 512*10,'uint8');
 image = zeros(512*10,512*10,'uint8');
 image_th = zeros(5120);
 
+variances = zeros(10, 10);
+
 for i=0:(length(image_names)-1)
-    im = imread(strcat('./images/',image_names(i+1).name));
+    im = imread(strcat('../sample_images/',image_names(i+1).name));
+    
     im_hq = histeq(im);
-    im_th = imbinarize(im, graythresh(im)*1.05);
+    im_th = imbinarize(im, graythresh(im)*1.1);
 
     x = mod(i, 10) * 512 + 1;
     y = floor(i / 10) * 512 + 1;
@@ -17,7 +20,31 @@ for i=0:(length(image_names)-1)
     image(y:y+511, x:x+511) = im;
     imhisteq(y:y+511, x:x+511) = im_hq;
     image_th(y:y+511, x:x+511) = im_th;
+    
+    x = mod(i, 10) + 1;
+    y = floor(i / 10) + 1;
+    
+    % needed for trimmping triangular black corners
+    imvar = im(12:end-12, 12:end-12);
+    variances(x,y) = var(double(imvar(:)));
 end
 
-imshow(image_th);
+XS = repmat(1:10, 1, 10) + 0.5;
+YS = reshape(repmat(1:10, 10, 1),[1,100]) + 0.5;
+variances = reshape(variances, [1,100]);
+
+
+imagesc([1, 11], [1, 11], image);
+colormap(gray);
+hold on;
+
+%hold on;
+%plot(x, y);
+
+
+scatter(XS, YS, variances);
+
+%plot(1:length(image_names), variances(:));
+%imshow(image);
+
 

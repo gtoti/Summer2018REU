@@ -15,16 +15,17 @@ def Main():
 
    for name in file_names:
       img = io.imread(name, as_gray=True)
+      print('image variance=', (img / 255).var())
 
       # contrast adjustment
-      p2, p98 = np.percentile(img, (2, 98))
+      p2, p98 = np.percentile(img, (5, 95))
       img = exposure.rescale_intensity(img, in_range=(p2, p98))
 
-      #plt.imshow(img, cmap=plt.cm.gray)
-      #plt.show()
-
-      fig, ax = try_all_threshold(img, figsize=(10, 8), verbose=False)
+      plt.imshow(img, cmap=plt.cm.gray)
       plt.show()
+
+      #fig, ax = try_all_threshold(img, figsize=(10, 8), verbose=False)
+      #plt.show()
 
       accept = input('Continue ? (Y/N) ')
       if len(accept) and accept.upper()[0] != 'Y': break
