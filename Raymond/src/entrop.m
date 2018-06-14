@@ -29,13 +29,11 @@ XS = repmat(1:10, 1, 10) + 0.5;
 YS = reshape(repmat(1:10, 10, 1),[1,100]) + 0.5;
 
 % exponential of the entropy to maximize differences
-entropies = exp(reshape(entropies, [1,100]));
+entropies = exp(reshape(entropies, [1,100])).^2 * 0.01;
 
 imagesc([1, 11], [1, 11], image);
 colormap(gray);
 hold on;
 
 scatter(XS, YS, entropies);
-
-
 
