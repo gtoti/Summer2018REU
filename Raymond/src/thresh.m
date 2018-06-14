@@ -26,4 +26,3 @@ end
 
 imshow(image_th);
 
-
