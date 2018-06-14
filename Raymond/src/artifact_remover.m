@@ -23,7 +23,9 @@ end
 f = histeq(im_avg).*2;
 f = imgaussfilt(f, 9);
 f = 1 - f;
-%imshow(im);
+f = f * 1.1;
+%imshow(f);
+
 
 image = double(image) / 255.0;
 
@@ -36,11 +38,10 @@ for i = 0:9
         
         filt = image(ymin:ymax, xmin:xmax) .* f;
         image(ymin:ymax, xmin:xmax) = image(ymin:ymax, xmin:xmax) + 0.09 * filt;
+        %image(ymin:ymax, xmin:xmax) = histeq(image(ymin:ymax, xmin:xmax));
     end
 end
 
-%imshow(image);
-%imshow(histeq(image));
-
-imwrite(image, '../16px_crop_shadow_triangle_removed.jpg')
+imshow(image);
+%imwrite(image, '../16px_crop_shadow_triangle_removed.jpg')
 

@@ -1,9 +1,10 @@
 
-image = imread('../16px_cornercrop_glance.jpg');
+image = imread('../16px_crop_shadow_triangle_removed.jpg');
 sub_im_pxlen = 512 - 32;
 
 gth = graythresh(image);
 im_bin = imbinarize(image, gth);
+
 %imshow(1-im_bin);
 
 blacks = zeros(10);
