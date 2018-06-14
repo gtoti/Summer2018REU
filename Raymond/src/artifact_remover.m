@@ -39,6 +39,8 @@ for i = 0:9
     end
 end
 
-imshow(image);
+%imshow(image);
 %imshow(histeq(image));
+
+imwrite(image, '../16px_crop_shadow_triangle_removed.jpg')
 
