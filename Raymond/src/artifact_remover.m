@@ -7,23 +7,21 @@ function A = artifact_remover(images)
 % c indexes the image
 
 % assert that images is a 3d array
-assert(size(size(images))==3);
+assert(length(size(images))==3);
 
 % average images
 im_avg = mean(images, 3);
-avg_bright = mean(im_avg(:));
+im_avg_avg = mean(im_avg(:));
 A = zeros(size(images));
 
 for i=1:size(images,3)
-    B = images(:,:,i);
-    B = B - im_avg;
-    B = B - min(B(:)) - mean(B(:)) + avg_bright;
+    B = images(:,:,i) - im_avg;
+    B = B - mean(B(:)) + im_avg_avg;
     A(:,:,i) = B;
 end
 
 mini = min(A(:));
 maxi = max(A(:));
-
 A = (A - mini) / (maxi - mini);
 
 end
