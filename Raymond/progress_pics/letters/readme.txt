@@ -18,3 +18,7 @@ F.jpg
 
 G.jpg
     histeq of F.jpg
+
+H.jpg
+    Copied from A.jpg, Simple graythresh binarize call on sample space of images 11 ot 100
+    on images respectively
