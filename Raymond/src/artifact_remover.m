@@ -1,47 +1,30 @@
 
-image = imread('../16px_cornercrop_glance.jpg');
-pxlen = 512 - 32;
+function A = artifact_remover(images)
+% images must be a 3 dimensional array of grayscale images with
+% values between 0 and 1. 
+% indexes are (a, b, c)
+% a and b index row and column
+% c indexes the image
 
-im_hq = histeq(image);
-im_bin = imbinarize(im_hq, graythresh(im_hq)*0.5);
+% assert that images are square
+assert(size(images, 1) == size(images,2));
 
+% average images
+im_avg = mean(images, 3);
+avg_bright = mean(im_avg(:));
+A = zeros(size(images));
 
-im_avg = zeros(pxlen);
-for i = 0:9
-    for j = 0:9
-        xmin = j * pxlen + 1;
-        xmax = xmin + pxlen - 1;
-        ymin = i * pxlen + 1;
-        ymax = ymin + pxlen - 1;
-        
-        subim = double(image(ymin:ymax, xmin:xmax)) ./ 255.0;
-        
-        im_avg = im_avg + subim / 100;
-    end
+for i=1:size(images,3)
+    B = images(:,:,i);
+    B = B - im_avg;
+    B = B - min(B(:));
+    B = B - mean(B(:)) + mean(im_avg(:));
+    A(:,:,i) = B;
 end
 
-f = histeq(im_avg).*2;
-f = imgaussfilt(f, 9);
-f = 1 - f;
-f = f * 1.1;
-%imshow(f);
+mini = min(A(:));
+maxi = max(A(:));
 
+A = (A - mini) / (maxi - mini);
 
-image = double(image) / 255.0;
-
-for i = 0:9
-    for j = 0:9
-        xmin = j * pxlen + 1;
-        xmax = xmin + pxlen - 1;
-        ymin = i * pxlen + 1;
-        ymax = ymin + pxlen - 1;
-        
-        filt = image(ymin:ymax, xmin:xmax) .* f;
-        image(ymin:ymax, xmin:xmax) = image(ymin:ymax, xmin:xmax) + 0.09 * filt;
-        %image(ymin:ymax, xmin:xmax) = histeq(image(ymin:ymax, xmin:xmax));
-    end
 end
-
-imshow(image);
-%imwrite(image, '../16px_crop_shadow_triangle_removed.jpg')
-
