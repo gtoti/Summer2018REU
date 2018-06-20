@@ -6,8 +6,8 @@ function A = artifact_remover(images)
 % a and b index row and column
 % c indexes the image
 
-% assert that images are square
-assert(size(images, 1) == size(images,2));
+% assert that images is a 3d array
+assert(size(size(images))==3);
 
 % average images
 im_avg = mean(images, 3);
@@ -17,8 +17,7 @@ A = zeros(size(images));
 for i=1:size(images,3)
     B = images(:,:,i);
     B = B - im_avg;
-    B = B - min(B(:));
-    B = B - mean(B(:)) + mean(im_avg(:));
+    B = B - min(B(:)) - mean(B(:)) + avg_bright;
     A(:,:,i) = B;
 end
 
