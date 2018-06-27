@@ -1,35 +1,25 @@
 
-image_names = dir('../sample_images');
-image_names = image_names(3:end);
+img = imread('../progress_pics/artifact_removal/mean_removal.jpg');
+img = double(img) ./ 255.0;
+variances = zeros(1, 100);
+n = 1;
 
-image = zeros(512*10,512*10,'uint8');
-variances = zeros(10, 10);
-
-for i=0:(length(image_names)-1)
-    im = imread(strcat('../sample_images/',image_names(i+1).name));
-
-    x = mod(i, 10) * 512 + 1;
-    y = floor(i / 10) * 512 + 1;
-
-    image(y:y+511, x:x+511) = im;
-    
-    x = mod(i, 10) + 1;
-    y = floor(i / 10) + 1;
-    
-    % needed for trimmping triangular black corners
-    imvar = im(12:end-12, 12:end-12);
-    variances(x,y) = var(double(imvar(:)));
+for i=0:9
+    for j=0:9
+        y = i*512;
+        x = j*512;
+        im = img(y+1:y+512, x+1:x+512);
+        variances(n) = var(im(:));
+        n=n+1;
+    end
 end
 
 XS = repmat(1:10, 1, 10) + 0.5;
 YS = reshape(repmat(1:10, 10, 1),[1,100]) + 0.5;
-variances = reshape(variances, [1,100]);
+variances = variances * 25500 * 1.5;
 
-imagesc([1, 11], [1, 11], image);
+imagesc([1, 11], [1, 11], img);
 colormap(gray);
 hold on;
 
-scatter(XS, YS, variances);
-
-
-
+scatter(XS, YS, variances, 'LineWidth', 2);

@@ -13,6 +13,7 @@ assert(length(size(images))==3);
 im_avg = mean(images, 3);
 im_avg_avg = mean(im_avg(:));
 
+% using median
 im_med = median(images, 3);
 im_med_med = median(im_med(:));
 
@@ -20,12 +21,8 @@ A = zeros(size(images));
 
 for i=1:size(images,3)
     % using mean image as artifact mask
-    %B = images(:,:,i) - im_avg;
-    %B = B - mean(B(:)) + im_avg_avg;
-    
-    % using median image as artifact mask
-    B = images(:,:,i) - im_med;
-    B = B - median(B(:)) + im_med_med;
+    B = images(:,:,i) - im_avg;
+    B = B - mean(B(:)) + im_avg_avg
     
     A(:,:,i) = B;
 end
