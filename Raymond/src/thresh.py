@@ -18,11 +18,9 @@ def Main():
       img = io.imread(name, as_gray=True)
       print('image variance=', (img / 255).var())
 
-      '''
       # contrast adjustment
-      p2, p98 = np.percentile(img, (5, 95))
-      img = exposure.rescale_intensity(img, in_range=(p2, p98))
-      '''
+      #p2, p98 = np.percentile(img, (5, 95))
+      #img = exposure.rescale_intensity(img, in_range=(p2, p98))
 
       img = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 21, 4)
       #img = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 21, 4)

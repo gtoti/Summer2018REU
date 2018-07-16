@@ -1,4 +1,5 @@
 
+
 img = imread('../progress_pics/artifact_removal/mean_removal.jpg');
 img = double(img) ./ 255.0;
 variances = zeros(1, 100);
