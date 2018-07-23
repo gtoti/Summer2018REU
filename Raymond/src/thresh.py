@@ -5,6 +5,7 @@ from skimage import io, exposure
 from skimage.filters import try_all_threshold
 from matplotlib import pyplot as plt
 import numpy as np
+import cv2 as cv
 
 def Main():
    file_names = sys.argv[1:]
@@ -18,8 +19,11 @@ def Main():
       print('image variance=', (img / 255).var())
 
       # contrast adjustment
-      p2, p98 = np.percentile(img, (5, 95))
-      img = exposure.rescale_intensity(img, in_range=(p2, p98))
+      #p2, p98 = np.percentile(img, (5, 95))
+      #img = exposure.rescale_intensity(img, in_range=(p2, p98))
+
+      img = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 21, 4)
+      #img = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 21, 4)
 
       plt.imshow(img, cmap=plt.cm.gray)
       plt.show()
