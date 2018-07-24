@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import pandas as pd
+import numpy as np
+
 def pre_process_data(
    file_name, pickled=True, feature_cols=[], label_col=-1, one_hot=False):
 
