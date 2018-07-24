@@ -11,7 +11,8 @@ def pre_process_data(
    else:
       df = pd.read_csv(file_name)
 
-   df = df.drop(drop)
+   if drop:
+      df = df.drop(columns=drop)
 
    if isinstance(label_col, int):
       label_col = df.columns[label_col]
@@ -23,7 +24,7 @@ def pre_process_data(
    elif all(isinstance(f, int) for f in feature_cols):
       feature_cols =[f for i, f in enumerate(df.columns) if i in feature_cols and f != label_col]
    else:
-      assert(all(isinstance(f, str), for f in feature_cols))
+      assert(all(isinstance(f, str) for f in feature_cols))
       feature_cols =[f for f in df.columns if f in feature_cols]
 
    features = df[feature_cols].values
@@ -40,6 +41,6 @@ def pre_process_data(
 
    return features, labels
 
-if __name__=='__main__'
+if __name__=='__main__':
    print('THIS FILE IS A LIBARY FOR TOTI MACHINE LEARNING, not meant to be run as a script')
 
