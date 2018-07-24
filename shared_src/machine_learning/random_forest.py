@@ -3,6 +3,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
+from utils import pre_process_data
 
 def train_random_forest(features, labels):
    clf = RandomForestClassifier()
@@ -10,6 +11,7 @@ def train_random_forest(features, labels):
    return clf
 
 def KFold(features, labels):
+   yield 
 
 def Main():
    import argparse
@@ -17,6 +19,7 @@ def Main():
 
    file_name = None
    training_data = pre_preprocess_data(file_name, label_col=-2)
+
 
 
    pass
