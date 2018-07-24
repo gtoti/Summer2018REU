@@ -5,6 +5,8 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 
+from utils
+
 def build_keras_sequential(activation='sigmoid', architecture=(12,5)):
    assert(len(architecture) >= 2)
    model = Sequential()
