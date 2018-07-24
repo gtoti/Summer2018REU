@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
+import pandas as pd
+import numpy as np
+
 def pre_process_data(
-   file_name, pickled=True, feature_cols=[], label_col=-1, one_hot=False):
+   file_name, pickled=True, feature_cols=[], label_col=-1, drop=[], one_hot=False, shuffle=True):
 
    if pickled:
       df = pd.read_pickle(file_name)
    else:
       df = pd.read_csv(file_name)
+
+   df = df.drop(drop)
 
    if isinstance(label_col, int):
       label_col = df.columns[label_col]
@@ -24,8 +29,14 @@ def pre_process_data(
    features = df[feature_cols].values
    labels = df[label_col].values
 
+
    if one_hot:
       labels = np.eye(np.unique(labels).shape[0])[labels]
+
+   if shuffle:
+      indices = np.random.permutation(len(features))
+      features = features[indices]
+      labels = labels[indices]
 
    return features, labels
 

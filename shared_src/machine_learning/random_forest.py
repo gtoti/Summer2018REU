@@ -18,9 +18,7 @@ def Main():
    parser = argparse.ArgumentParser()
 
    file_name = None
-   training_data = pre_preprocess_data(file_name, label_col=-2)
-
-
+   features, labels = pre_preprocess_data(file_name, label_col=-2)
 
    pass
 
