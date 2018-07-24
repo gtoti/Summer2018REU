@@ -301,7 +301,8 @@ def collect_images_and_labels(directory):
          name = '{}/{}'.format(path, file_nm) # name of file of image
          img = skimio.imread(name) # read image
 
-         #img = img[:-128,:,:] # crop scalebar
+         # CROP SCALEBAR OUT ONLY FOR DEWETTING IMAGES
+         img = img[:-128,:,:] # crop scalebar
          img_gray = cv.cvtColor(img, cv.COLOR_RGB2GRAY)      # grayscale
          img_sat = cv.cvtColor(img, cv.COLOR_RGB2HSV)[:,:,1] # saturation
 
@@ -339,7 +340,7 @@ def Main(directory):
    #df.to_pickle('PICKLED_FEATURES')
 
    # write as csv
-   df.to_csv('features_phaseseparation.csv')
+   df.to_csv('features_dewetting.csv')
 ### end of def Main
 
 if __name__=='__main__' and len(sys.argv) > 1:

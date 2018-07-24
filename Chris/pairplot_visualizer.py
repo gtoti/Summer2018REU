@@ -1,3 +1,10 @@
+'''
+author: Chris Kim
+
+Methods summarize_df, get_properties_df, and dataframe_to_excel are no longer relevant methods.
+Archived for possible later use. The main code takes in a CSV file and outputs scatter plot matrix
+pairplots.
+'''
 import pandas as pd
 import os
 import numpy as np
@@ -8,6 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import seaborn as sns
 
+'''
 def summarize_df(df):
 	columns = ['Area','EulerNumber','Perimeter','PARatio','SatArea','SatEulerNumber','SatPerimeter','SatPARatio']
 	polymers = df.index.unique()
@@ -53,41 +61,20 @@ def dataframe_to_excel():
 	writer.close()
 	print('Step 2 complete')
 	return df
+'''
 
-	
-if __name__ == '__main__' :
-	#df = dataframe_to_excel();
-	df = pd.read_csv('features_phaseseparation.csv')
+def visualize_pairplot(name):
+	df = pd.read_csv(name)
 	df = df.reset_index()
-	#df.info(memory_usage='deep')
-		
-	# produces scatter matrix
-	#X = df[['Polymer','WhiteDensity_unweighted', 'WhiteDensity_weighted', 'Entropy', 'IntensitySum', 'IntensityStd', 'IntensityMean', 'IntensityMed', 'Skew']]
-	#y = df['Category']
 	sns.set(style='ticks')
 	df = df.rename(index=str, columns={'grayscale_ent': 'gs.ent', 'grayscale_ent_devN2': 'gs.ent.l', 'grayscale_std':'gs.std', 'grayscale_std_devN2':'gs.std.l', 'grayscale_skew':'gs.skew', 'grayscale_skew_devN2':'gs.skew.l','saturation_ent':'sat.ent','saturation_ent_devN2':'sat.ent.l','saturation_std':'sat.std', 'saturation_std_devN2':'sat.std.l', 'saturation_skew':'sat.skew', 'saturation_skew_devN2':'sat.skew.l'})
-	# df = df.drop(columns=['White_w', 'IntMean', 'IntMed', 'IntStd'])
 	sns.pairplot(df,hue='labels', vars=['gs.ent', 'gs.ent.l', 'gs.std', 'gs.std.l', 'gs.skew', 'gs.skew.l'])
 	plt.show()
 	sns.pairplot(df,hue='labels', vars=['sat.ent', 'sat.ent.l', 'sat.std', 'sat.std.l', 'sat.skew', 'sat.skew.l'])
 	plt.show()
 	sns.pairplot(df,hue='labels', x_vars=['gs.ent', 'gs.ent.l', 'gs.std', 'gs.std.l', 'gs.skew', 'gs.skew.l'], y_vars=['sat.skew.l','sat.skew','sat.std.l','sat.std','sat.ent.l','sat.ent'])
 	plt.show()
-
-
-	#cmap = cm.get_cmap('gnuplot')
-	#scatter = pd.plotting.scatter_matrix(X,y, marker='o', s=40, hist_kwds={'bins':15}, figsize=(24,24), cmap=cmap)
 	
-	
-
-	""" produces 3D figure
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	ax.scatter(df_stat['Area']['std'], df_stat['Eccentricity']['sum'], df_stat['Area']['count'], marker = 'o', s=100)
-	ax.set_xlabel('area, std')
-	ax.set_ylabel('eccentricity, sum')
-	ax.set_zlabel('count')
-	plt.show()
-	"""
-
-	
+if __name__ == '__main__' :
+	#df = dataframe_to_excel();
+	visualize_pairplot('features_phaseseparation.csv')
