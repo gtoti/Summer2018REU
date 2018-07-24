@@ -194,6 +194,7 @@ def extract_features_into_pandas_frame(grayscale_images, saturation_images):
    saturation_skew_devN2 = np.empty(n_images)
 
    for i in range(n_images):
+      print('Working on image',i,'/',n_images)
       img_gray = grayscale_images[:,:,i]
       img_sat = saturation_images[:,:,i]
 
@@ -288,6 +289,7 @@ def collect_images_and_labels(directory):
 
    # collect images and labels
    for label in os.listdir(directory):
+      print('Running ',label)
       path = '{}/{}'.format(directory, label)
       image_names = os.listdir(path) # names of images in label folder
 
@@ -299,7 +301,7 @@ def collect_images_and_labels(directory):
          name = '{}/{}'.format(path, file_nm) # name of file of image
          img = skimio.imread(name) # read image
 
-         img = img[:-128,:,:] # crop scalebar
+         #img = img[:-128,:,:] # crop scalebar
          img_gray = cv.cvtColor(img, cv.COLOR_RGB2GRAY)      # grayscale
          img_sat = cv.cvtColor(img, cv.COLOR_RGB2HSV)[:,:,1] # saturation
 
@@ -326,10 +328,10 @@ import sys
 def Main(directory):
    # collect images and labels from directory
    labels, file_names, grayscale_images, saturation_images = collect_images_and_labels(directory)
-
+   print('Preparing Feature Extraction')
    # extract features into the form of  pandas data frame
    df = extract_features_into_pandas_frame(grayscale_images, saturation_images)
-
+   print('COMPLETED Feature Extraction')
    # add labels and filenames columns
    df['labels'] = labels
    df['file_names'] = file_names
@@ -337,7 +339,7 @@ def Main(directory):
    #df.to_pickle('PICKLED_FEATURES')
 
    # write as csv
-   df.to_csv('features.csv')
+   df.to_csv('features_phaseseparation.csv')
 ### end of def Main
 
 if __name__=='__main__' and len(sys.argv) > 1:
