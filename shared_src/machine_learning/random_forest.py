@@ -36,14 +36,11 @@ def Main():
                      model_callback=model_callback)
 
    print('KFold Cross Validation at k={} :'.format(kfold_splits))
-   for k, s in enumerate(scores):
-      print('Fold: {}, CV Accuracy: {:.2f}'.format(k, s)) 
+   print('\n'.join(['Fold: {}, CV Accuracy: {:.2f}'.format(k+1, s) for k, s in enumerate(scores)]))
    print('mean: {:.2f},  std: {:.2f}'.format(kfold, np.std(np.array(scores))))
 
    df = pd.DataFrame(columns=con_matrix_labels, index=con_matrix_labels)
-   for i, column in enumerate(df.columns):
-      df[column] = con_matrix[:, i]
-
+   for i, column in enumerate(df.columns): df[column] = con_matrix[:, i]
    print('Confusion Matrix:\n', df)
 
 if __name__=='__main__': Main()
