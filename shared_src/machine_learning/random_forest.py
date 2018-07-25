@@ -1,46 +1,50 @@
 #!/usr/bin/env python3
 
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import confusion_matrix
 import numpy as np
 
 from utils import pre_process_data
-
-def train_random_forest(features, labels, kfold_splits=10, return_scores=False):
-   kfold = StratifiedKFold(n_splits=kfold_splits, random_state=1).split(features,labels)
-   scores = []
-   for k, (train,test) in enumerate(kfold):
-      clf = RandomForestClassifier()
-      clf.fit(features[train], labels[train])
-      score = clf.score(features[test], labels[test])
-      scores.append(score)
-
-   kfold_accuracy = np.mean(np.array(scores))
-
-   return (kfold_accuracy, scores) if return_scores else kfold_accuracy
-
+from utils import kFold_Scikit_Model_Trainer
 
 def Main():
-   '''
-   import argparse
-   parser = argparse.ArgumentParser()
-   '''
-
    import sys
    file_name = sys.argv[1]
 
-   features, labels = pre_process_data(file_name, pickled=False, label_col=-1, drop='file_names', shuffle=True)
-   kfold_splits = 10
-   kfold, scores = train_random_forest(features, labels, kfold_splits=10, return_scores=True)
+   features, labels = pre_process_data(
+                        file_name, pickled=False, label_col=-1, drop='file_names',
+                        shuffle=True, standard_scale=True)
+
+   kfold_splits=10
+
+   con_matrix_labels = sorted(np.unique(labels))
+   con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
+
+   def model_callback(model, train, test):
+      y_ = labels[test]
+      y = model.predict(features[test])
+      nonlocal con_matrix
+      con_matrix += confusion_matrix(y_, y, labels=con_matrix_labels)
+
+   kfold, scores = kFold_Scikit_Model_Trainer(
+                     features, labels,
+                     model_constructor=lambda: RandomForestClassifier(n_estimators=50),
+                     kfold_splits=kfold_splits,
+                     return_scores=True,
+                     model_callback=model_callback)
 
    print('KFold Cross Validation at k={} :'.format(kfold_splits))
-
    for k, s in enumerate(scores):
-      print('Fold: {}, Validation Accuracy: {}'.format(k, s))
+      print('Fold: {}, CV Accuracy: {:.2f}'.format(k, s)) 
+   print('mean: {:.2f},  std: {:.2f}'.format(kfold, np.std(np.array(scores))))
 
-   print('mean: {},  std: {}'.format(kfold, np.std(np.array(scores))))
+   df = pd.DataFrame(columns=con_matrix_labels, index=con_matrix_labels)
+   for i, column in enumerate(df.columns):
+      df[column] = con_matrix[:, i]
+
+   print('Confusion Matrix:\n', df)
 
 if __name__=='__main__': Main()
 

@@ -2,9 +2,12 @@
 
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import StandardScaler
 
 def pre_process_data(
-   file_name, pickled=True, feature_cols=[], label_col=-1, drop=[], one_hot=False, shuffle=True):
+   file_name, pickled=True, feature_cols=[], label_col=-1, drop=[],
+   one_hot=False, shuffle=True, standard_scale=False):
 
    if pickled:
       df = pd.read_pickle(file_name)
@@ -37,6 +40,10 @@ def pre_process_data(
       indices = np.random.permutation(len(features))
       features = features[indices]
       labels = labels[indices]
+
+   if standard_scale:
+      scaler = StandardScaler()
+      features = scaler.fit_transform(features)
 
    return features, labels
 
