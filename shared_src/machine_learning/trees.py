@@ -23,7 +23,7 @@ def PerformTraining(features, labels, model_constructor):
 
    kfold, scores = kFold_Scikit_Model_Trainer(
                      features, labels,
-                     model_constructor=lambda: RandomForestClassifier(n_estimators=50),
+                     model_constructor=model_constructor,
                      kfold_splits=kfold_splits,
                      return_scores=True,
                      model_callback=model_callback)
@@ -46,7 +46,7 @@ def Main():
 
    print('\nRandom Forest(n_estimators=50):')
    PerformTraining(features, labels, model_constructor=lambda: RandomForestClassifier(n_estimators=50))
-   print('\nScikit Tree:')
+   print('\nScikit DecisionTreeClassifier:')
    PerformTraining(features, labels, model_constructor=tree.DecisionTreeClassifier)
 
 if __name__=='__main__':
