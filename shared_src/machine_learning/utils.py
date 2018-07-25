@@ -7,12 +7,13 @@ from sklearn.preprocessing import StandardScaler
 
 def pre_process_data(
    file_name, pickled=True, feature_cols=[], label_col=-1, drop=[],
-   one_hot=False, shuffle=True, standard_scale=False, index_col=False):
+   one_hot=False, shuffle=True, standard_scale=False, index_col=None):
 
    """
       This function reads in a data file and performs some preprocessing
       depending on passed parameters and returns 2 numpy arrays corresponding
-      to selected features and labels as a tuple
+      to selected features and labels as a tuple. feature columns and label columns
+      are selected after dropping
 
       parameters:
          @file_name             - String of file or file buffer
@@ -43,7 +44,9 @@ def pre_process_data(
                                    subtracting the mean of that feature from every example
                                    and dividing each example by the feature's standard deviation.
 
-         @index_col=False        - only applicable if @pickled=False, for csv mode
+         @index_col=None        - only applicable if @pickled=False, for csv mode.
+                                   If your csv file has a index column, specify it as an integer
+                                   corresponding to the index of the index column
 
       returns:
          @features  - 2D numpy array where Each example is a row of this numpy array,
@@ -60,6 +63,8 @@ def pre_process_data(
 
    if drop:
       df = df.drop(columns=drop)
+
+   print(df.columns)
 
    if isinstance(label_col, int):
       label_col = df.columns[label_col]
@@ -135,6 +140,32 @@ def kFold_Scikit_Model_Trainer(
 
    return (kfold_accuracy, scores) if return_scores else kfold_accuracy
 
+def confusion_matrix_f1_scores(con_matrix):
+   """
+      Calculates F1 score for each class in a confusion matrix
+   """
+
+   # check that con_matrix is a 2D square numpy array
+   assert(isinstance(con_matrix, np.ndarray)
+          and len(con_matrix.shape) == 2
+          and con_matrix.shape[0] == con_matrix.shape[1])
+
+   n_classes = len(con_matrix)
+   n_examples = np.sum(con_matrix)
+
+   f1_scores = np.zeros(n_classes)
+   for i in range(n_classes):
+      tp = con_matrix[i, i]
+      fp = np.sum(con_matrix[:, i]) - tp
+      fn = np.sum(con_matrix[i, :]) - tp
+      #tn = n_examples - tp - fp - fn
+
+      precision = tp / (tp + fp)
+      recall = tp / (tp + fn)
+
+      f1_scores[i] = 2. / ((1. / precision) + (1. / recall))
+
+   return f1_scores
 
 if __name__=='__main__':
    print('THIS FILE IS A LIBARY FOR TOTI MACHINE LEARNING, not meant to be run as a script')

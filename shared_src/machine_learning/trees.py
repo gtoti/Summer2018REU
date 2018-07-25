@@ -9,6 +9,7 @@ from sklearn import tree
 
 from utils import pre_process_data
 from utils import kFold_Scikit_Model_Trainer
+from utils import confusion_matrix_f1_scores
 
 def PerformTraining(features, labels, model_constructor):
    kfold_splits=10
@@ -29,25 +30,35 @@ def PerformTraining(features, labels, model_constructor):
                      model_callback=model_callback)
 
    print('KFold Cross Validation at k={} :'.format(kfold_splits))
-   print('\n'.join(['Fold: {}, CV Accuracy: {:.2f}'.format(k+1, s) for k, s in enumerate(scores)]))
+   for k, s in enumerate(scores):
+      print('Fold: {}, CV Accuracy: {:.2f}'.format(k+1, s))
    print('mean: {:.2f},  std: {:.2f}'.format(kfold, np.std(np.array(scores))))
 
    df = pd.DataFrame(columns=con_matrix_labels, index=con_matrix_labels)
    for i, column in enumerate(df.columns): df[column] = con_matrix[:, i]
    print('Confusion Matrix:\n', df)
 
+   f1_scores = confusion_matrix_f1_scores(con_matrix)
+   print('f1 scores:')
+   print('\n'.join('class: {} -> f1_score: {:.2f}'.format(label, score) for label, score in zip(df.columns, scores)))
+
 def Main():
    import sys
    file_name = sys.argv[1]
 
    features, labels = pre_process_data(
-                        file_name, pickled=False, label_col=-1, drop='file_names',
-                        shuffle=True, standard_scale=True)
+                        file_name, pickled=False, label_col=-1,
+                        drop=["file_names"]
+                        shuffle=True, standard_scale=True, index_col=0)
 
    print('\nRandom Forest(n_estimators=50):')
-   PerformTraining(features, labels, model_constructor=lambda: RandomForestClassifier(n_estimators=50))
+   PerformTraining(
+      features, labels,
+      model_constructor=lambda: RandomForestClassifier(n_estimators=50))
    print('\nScikit DecisionTreeClassifier:')
-   PerformTraining(features, labels, model_constructor=tree.DecisionTreeClassifier)
+   PerformTraining(
+      features, labels,
+      model_constructor=tree.DecisionTreeClassifier)
 
 if __name__=='__main__':
    Main()
