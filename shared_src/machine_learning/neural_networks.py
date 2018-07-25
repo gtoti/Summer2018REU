@@ -35,7 +35,7 @@ def build_keras_sequential(activation='sigmoid', architecture=(12,5)):
                  metrics=['accuracy'])
    return model
 
-## TTD: see whether if model needs to be recompiled with each k iteration so that it starts with random weights. look at fit documentation
+
 
 def train_keras_sequential(file, model,epoch_num):
    df = pd.read_csv(file)
@@ -75,4 +75,7 @@ if __name__=='__main__' and len(sys.argv) > 1:
    Main(directory)
 
 
-   
+## TTD: see whether if model needs to be recompiled with each k iteration so that it starts with random weights. look at fit documentation 
+##      part of train_keras_model
+
+## TTD: get confusion matrix, F1 scores as well 
