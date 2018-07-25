@@ -30,7 +30,6 @@ def pre_process_data(
    features = df[feature_cols].values
    labels = df[label_col].values
 
-
    if one_hot:
       labels = np.eye(np.unique(labels).shape[0])[labels]
 
@@ -40,6 +39,25 @@ def pre_process_data(
       labels = labels[indices]
 
    return features, labels
+
+def kFold_Scikit_Model_Trainer(
+   features, labels, model_constructor, kfold_splits=10,
+   return_scores=False, model_callback=None):
+
+   kfold = StratifiedKFold(n_splits=kfold_splits, random_state=1).split(features,labels)
+   scores = []
+   for k, (train,test) in enumerate(kfold):
+      model = model_constructor()
+      model.fit(features[train], labels[train])
+      score = model.score(features[test], labels[test])
+      scores.append(score)
+      if model_callback is not None and callable(model_callback):
+         model_callback(model, train, test)
+
+   kfold_accuracy = np.mean(np.array(scores))
+
+   return (kfold_accuracy, scores) if return_scores else kfold_accuracy
+
 
 if __name__=='__main__':
    print('THIS FILE IS A LIBARY FOR TOTI MACHINE LEARNING, not meant to be run as a script')
