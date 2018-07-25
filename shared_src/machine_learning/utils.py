@@ -25,10 +25,10 @@ def pre_process_data(
    if not feature_cols:
       feature_cols =[f for f in df.columns if f != label_col]
    elif all(isinstance(f, int) for f in feature_cols):
-      feature_cols =[f for (i, f) in enumerate(df.columns) if i in feature_cols and f != label_col]
+      feature_cols =[f for i, f in enumerate(df.columns) if i in feature_cols and f != label_col]
    else:
       assert(all(isinstance(f, str) for f in feature_cols))
-      feature_cols =[f for f in df.columns if f in feature_cols and f != label_col]
+      feature_cols =[f for f in df.columns if f in feature_cols]
 
    features = df[feature_cols].values
    labels = df[label_col].values
