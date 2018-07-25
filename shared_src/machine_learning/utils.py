@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 def pre_process_data(
    file_name, pickled=True, feature_cols=[], label_col=-1, drop=[],
-   one_hot=False, shuffle=True, standard_scale=False, index_col=None):
+   one_hot=False, shuffle=True, standard_scale=False, index_col=0):
 
    """
       This function reads in a data file and performs some preprocessing
@@ -63,8 +63,6 @@ def pre_process_data(
 
    if drop:
       df = df.drop(columns=drop)
-
-   print(df.columns)
 
    if isinstance(label_col, int):
       label_col = df.columns[label_col]
@@ -162,7 +160,6 @@ def confusion_matrix_f1_scores(con_matrix):
 
       precision = tp / (tp + fp)
       recall = tp / (tp + fn)
-
       f1_scores[i] = 2. / ((1. / precision) + (1. / recall))
 
    return f1_scores
