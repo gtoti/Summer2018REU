@@ -1,24 +1,17 @@
 #!/usr/bin/env python3
 
 import pandas as pd
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import confusion_matrix
-import numpy as np
+from sklearn import tree
 
 from utils import pre_process_data
 from utils import kFold_Scikit_Model_Trainer
 
-def Main():
-   import sys
-   file_name = sys.argv[1]
-
-   features, labels = pre_process_data(
-                        file_name, pickled=False, label_col=-1, drop='file_names',
-                        shuffle=True, standard_scale=True)
-
+def PerformTraining(features, labels, model_constructor):
    kfold_splits=10
-
    con_matrix_labels = sorted(np.unique(labels))
    con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
 
@@ -43,5 +36,19 @@ def Main():
    for i, column in enumerate(df.columns): df[column] = con_matrix[:, i]
    print('Confusion Matrix:\n', df)
 
-if __name__=='__main__': Main()
+def Main():
+   import sys
+   file_name = sys.argv[1]
+
+   features, labels = pre_process_data(
+                        file_name, pickled=False, label_col=-1, drop='file_names',
+                        shuffle=True, standard_scale=True)
+
+   print('\nRandom Forest(n_estimators=50):')
+   PerformTraining(features, labels, model_constructor=lambda: RandomForestClassifier(n_estimators=50))
+   print('\nScikit Tree:')
+   PerformTraining(features, labels, model_constructor=tree.DecisionTreeClassifier)
+
+if __name__=='__main__':
+   Main()
 

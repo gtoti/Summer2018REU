@@ -7,12 +7,12 @@ from sklearn.preprocessing import StandardScaler
 
 def pre_process_data(
    file_name, pickled=True, feature_cols=[], label_col=-1, drop=[],
-   one_hot=False, shuffle=True, standard_scale=False):
+   one_hot=False, shuffle=True, standard_scale=False, index_col=None):
 
    if pickled:
       df = pd.read_pickle(file_name)
    else:
-      df = pd.read_csv(file_name)
+      df = pd.read_csv(file_name, index_col=index_col)
 
    if drop:
       df = df.drop(columns=drop)
