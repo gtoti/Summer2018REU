@@ -48,7 +48,8 @@ def Main():
 
    features, labels = pre_process_data(
                         file_name, pickled=False, label_col=-1,
-                        drop=["file_names"]
+                        drop=["file_names"],
+                        #drop=["file_names", "grayscale_ent_devN2", "grayscale_std_devN2","grayscale_skew_devN2","saturation_ent_devN2","saturation_std_devN2","saturation_skew_devN2"],
                         shuffle=True, standard_scale=True, index_col=0)
 
    print('\nRandom Forest(n_estimators=50):')
