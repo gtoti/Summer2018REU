@@ -23,9 +23,11 @@ def build_and_train_SVM(file):
                     kfold_splits=kfold_splits,
                     return_scores=True,
                     model_callback=model_callback)
-	print(features.shape)
 	print('\nScore: %.3f +/- %.3f' %(kfold,np.std(scores)))
 	print('\nConfusion Matrix:\n', con_matrix)
+	f1scores = confusion_matrix_f1_scores(con_matrix)
+	for k,f1 in enumerate(f1scores):
+		print('f1, Class '+str(k+1)+': %.3f' %(f1))
 
 def Main(file):
 	print('\nSupport Vector Classifier:')
