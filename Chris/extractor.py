@@ -340,7 +340,7 @@ def Main(directory):
    #df.to_pickle('PICKLED_FEATURES')
 
    # write as csv
-   df.to_csv('features_dewetting.csv')
+   df.to_csv('features_phaseseparation.csv')
 ### end of def Main
 
 if __name__=='__main__' and len(sys.argv) > 1:
