@@ -1,0 +1,25 @@
+
+Results for  features_dewetting.csv
+best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20} , score=0.8750
+best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25} , score=0.8929
+best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50} , score=0.8750
+best_params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 5} , score=0.8393
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10} , score=0.9107
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8393
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8929
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50} , score=0.8750
+best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50} , score=0.8750
+best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 5} , score=0.8393
+
+Results for  features_phaseseparation.csv
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15} , score=0.8876
+best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15} , score=0.8817
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25} , score=0.8876
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50} , score=0.8817
+best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20} , score=0.8817
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8698
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8994
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100} , score=0.8876
+best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100} , score=0.8757
+best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8817
+
