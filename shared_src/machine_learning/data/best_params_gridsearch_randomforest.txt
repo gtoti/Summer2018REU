@@ -1,25 +1,27 @@
-
-Results for  features_dewetting.csv
-best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20} , score=0.8750
-best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25} , score=0.8929
-best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50} , score=0.8750
-best_params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 5} , score=0.8393
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10} , score=0.9107
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8393
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8929
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50} , score=0.8750
-best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50} , score=0.8750
-best_params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 5} , score=0.8393
-
-Results for  features_phaseseparation.csv
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15} , score=0.8876
-best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15} , score=0.8817
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25} , score=0.8876
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50} , score=0.8817
-best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20} , score=0.8817
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8698
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8994
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100} , score=0.8876
-best_params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100} , score=0.8757
-best_params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 80} , score=0.8817
-
+# Running with args: Namespace(KFOLDNUM=10, PRINT_TOGGLE=False, TRIALS=10, data_set=['data/features_dewetting.csv', 'data/features_phaseseparation.csv'])
+#
+#Results for : data/features_dewetting.csv
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8393	Test_score=0.7143
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8571	Test_score=0.7143
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8571	Test_score=0.7143
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8750	Test_score=0.8571
+#GridSearch CV_stats -> mean:0.8500, std:0.0118
+#
+#Results for : data/features_phaseseparation.csv
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8639	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8698	Test_score=0.9474
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.9474
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8817	Test_score=0.9474
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
+#GridSearch CV_stats -> mean:0.8734, std:0.0060
