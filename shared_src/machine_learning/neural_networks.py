@@ -49,19 +49,10 @@ def build_keras_sequential(activation='sigmoid', architecture=(12,5)):
       layer = Dense(units, activation=activation, input_dim=input_dim)
       model.add(layer)
       input_dim = units
-      '''
-      The optimizer RMSprop divides the gradient by a running average of its recent 
-      magnitude. It is usually a good choice for recurrent neural networks. We've seen
-      a sharp drop in performance with higher epoch numbers. This problem hasn't been
-      observed with the optimizer adam.
-      Loss function specific for multi-class classification problems.
-      '''
    model.compile(optimizer='adam',
                  loss='categorical_crossentropy',
                  metrics=['accuracy'])
    return model
-
-
 
 def train_keras_sequential(data,labels,config,epoch_num):
    n_splits = 10
@@ -95,9 +86,8 @@ def Main(file):
       (input_num, 8, output_num),
       (input_num, 10, 7, output_num),
    ]
-   epoch = [700,700,700]
+   epoch = [800,800,800]
 
-  
    means = []
    stds = []
    cms = []
@@ -129,8 +119,3 @@ if __name__=='__main__' and len(sys.argv) > 1:
    directory = sys.argv[1]
    Main(directory)
 
-
-## TTD: see whether if model needs to be recompiled with each k iteration so that it starts with random weights. look at fit documentation 
-##      part of train_keras_model
-
-## TTD: get confusion matrix, F1 scores as well 
