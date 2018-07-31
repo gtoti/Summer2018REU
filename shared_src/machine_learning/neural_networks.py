@@ -54,7 +54,7 @@ def build_keras_sequential(activation='sigmoid', architecture=(12,5)):
                  metrics=['accuracy'])
    return model
 
-def train_keras_sequential(data,labels,config,epoch_num):
+def train_keras(data,labels,config,epoch_num):
    n_splits = 10
    con_matrix_labels = sorted(np.unique(labels))
    con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
