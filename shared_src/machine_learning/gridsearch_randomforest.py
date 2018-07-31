@@ -6,12 +6,6 @@ from utils import *
 import numpy as np
 
 if __name__=='__main__':
-   rand_forest_parameters = {
-      'n_estimators':(10,15,20,25,50,100),
-      'max_features':(None, 'auto'),
-      'criterion':('gini','entropy')
-   }
-
    import argparse
    parser = argparse.ArgumentParser(
       description=
@@ -26,14 +20,14 @@ if __name__=='__main__':
    index column and that there is a column called file_names which it will drop
    before reading.""")
 
-   parser.add_argument('-n','--n_trials', type=int, nargs=1, default=10,\
+   parser.add_argument('-n','--n_trials', type=int, action='store', default=10,\
    help=
    """ 
    Number of trials to perform gridsearch on RandomForest parameters.
    Default N=10.
    """, dest="TRIALS")
 
-   parser.add_argument('-k','--kfoldnum', type=int, nargs=1, default=10,\
+   parser.add_argument('-k','--kfoldnum', type=int, action='store', default=10,\
    help=
    """
    K number to perform K fold cross validation. Default k=10
@@ -54,16 +48,25 @@ if __name__=='__main__':
    n_trials = arguments.TRIALS
    k_folds = arguments.KFOLDNUM
 
+   rand_forest_parameters = {
+      'n_estimators':(10,15,20,25,50,100),
+      'max_features':(None, 'auto'),
+      'criterion':('gini','entropy')
+   }
+   param_keys = list(rand_forest_parameters.keys())
+
    if print_params:
       print(rand_forest_parameters)
       quit()
 
    if len(file_nms) == 0:
-      print("Nothing to processed!")
+      print("Nothing to process!")
       quit()
 
 
-   print("# Running with args:", arguments)
+   #print("# Running with args:", arguments)
+   assert(n_trials >= 1)
+   assert(k_folds >= 2)
 
    for file_nm in file_nms:
       features, labels = pre_process_data(
@@ -72,24 +75,48 @@ if __name__=='__main__':
             standard_scale=False, index_col=0)
 
       i = len(labels) * 9//10
-      features_train = features[:i]
       features_test  = features[i:]
-      labels_train   = labels[:i]
       labels_test    = labels[i:]
+      features_train = features[:i]
+      labels_train   = labels[:i]
 
-      model = RandomForestClassifier()
-      clfs=[GridSearchCV(model,rand_forest_parameters, cv=k_folds,\
-            return_train_score=True).fit(features_train, labels_train)\
-            for i in range(n_trials)]
+      clfs = [GridSearchCV(RandomForestClassifier(),rand_forest_parameters,
+              cv=k_folds,return_train_score=True)\
+              .fit(features_train,labels_train) for i in range(n_trials)]
 
-      results = [(str(c.best_params_),c.best_score_,\
+      results = [(c.best_params_,c.best_score_,\
                   c.score(features_test, labels_test)) for c in clfs]
 
       print("#\n#Results for :", file_nm)
       print('\n'.join('Best Params={}\tCV_score={:.4f}\tTest_score={:.4f}'\
-                .format(*c) for c in sorted(results, key=lambda c:c[1])))
+                .format(*c) for c in\
+                sorted(results, key=lambda c:c[1], reverse=True)))
 
       CV_stats = np.array(list(c[1] for c in results))
       CV_stats = np.mean(CV_stats), np.std(CV_stats)
       print('#GridSearch CV_stats -> mean:{:.4f}, std:{:.4f}'.format(*CV_stats))
+
+      modal_param = [[c[0][k] for c in results] for k in param_keys]
+      modal_param = [max(set(c), key=c.count) for c in modal_param]
+      modal_param = {k:m for k,m in zip(param_keys, modal_param)}
+
+      kfold = StratifiedKFold(n_splits=k_folds).split(
+                              features_train,labels_train)
+
+      modal_cv_score = []
+      modal_test_score = []
+      for train,valid in kfold:
+         model = RandomForestClassifier(**modal_param)
+         model.fit(features_train[train],labels_train[train])
+
+         modal_cv_score.append(model.score(
+                               features_train[valid], labels_train[valid]))
+         modal_test_score.append(model.score(features_test, labels_test))
+
+      modal_cv_score = np.mean(modal_cv_score), np.std(modal_cv_score)
+      modal_test_score = np.mean(modal_test_score)
+
+      print('#Modal Model({})\tmean_cv:{:.4f}\tcv_std:{:.4f}\tmean_test:{:.4f}'\
+      .format(modal_param,modal_cv_score[0],modal_cv_score[1],modal_test_score))
+
 
