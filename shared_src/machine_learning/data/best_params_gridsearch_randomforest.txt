@@ -1,27 +1,109 @@
-# Running with args: Namespace(KFOLDNUM=10, PRINT_TOGGLE=False, TRIALS=10, data_set=['data/features_dewetting.csv', 'data/features_phaseseparation.csv'])
 #
 #Results for : data/features_dewetting.csv
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 10}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8214	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=1.0000
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 50}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8393	Test_score=1.0000
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
 Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 100}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
 Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
-Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8393	Test_score=0.8571
-Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8393	Test_score=0.7143
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8393	Test_score=1.0000
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8393	Test_score=1.0000
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8393	Test_score=1.0000
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8393	Test_score=0.7143
 Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8393	Test_score=0.8571
-Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8571	Test_score=0.8571
-Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8571	Test_score=0.7143
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8393	Test_score=0.8571
 Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8571	Test_score=0.8571
-Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8571	Test_score=0.7143
-Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8750	Test_score=0.8571
-#GridSearch CV_stats -> mean:0.8500, std:0.0118
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 10}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 10}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 25}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8571	Test_score=1.0000
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': None, 'n_estimators': 10}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8571	Test_score=0.8571
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8571	Test_score=0.8571
+#GridSearch CV_stats -> mean:0.8414, std:0.0105
+#Modal Model({'n_estimators': 15, 'max_features': None, 'criterion': 'gini'})	mean_cv:0.8029	cv_std:0.2226	mean_test:0.8571
+#
 #
 #Results for : data/features_phaseseparation.csv
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8639	Test_score=0.8947
 Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8639	Test_score=0.8947
-Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8698	Test_score=0.9474
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8639	Test_score=0.9474
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8639	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8639	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8639	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8947
 Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8947
-Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}	CV_score=0.8698	Test_score=0.8947
-Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8698	Test_score=0.8947
-Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.9474
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}	CV_score=0.8698	Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 15}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8947
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8698	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8757	Test_score=0.8947
 Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8757	Test_score=0.8947
-Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8817	Test_score=0.9474
-Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8757	Test_score=0.8421
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 10}	CV_score=0.8757	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8757	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8757	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8817	Test_score=0.8947
 Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
-#GridSearch CV_stats -> mean:0.8734, std:0.0060
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8817	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8876	Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}	CV_score=0.8876	Test_score=0.8947
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}	CV_score=0.8935	Test_score=0.8947
+#GridSearch CV_stats -> mean:0.8759, std:0.0076
+#Modal Model({'n_estimators': 50, 'max_features': 'auto', 'criterion': 'gini'})	mean_cv:0.8624	cv_std:0.0848	mean_test:0.8895
