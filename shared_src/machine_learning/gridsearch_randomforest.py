@@ -80,8 +80,9 @@ def generate_learning_curve(file_nm, best_params, features_train, labels_train):
    plt.xlabel('Number of Training Examples')
    plt.ylabel('Accuracy')
    plt.legend(loc='lower right')
-   plt.ylim([0.0, 1.0])
-   plt.show()
+   plt.ylim([0.5, 1.0])
+   plt.savefig(file_nm+'_figure.png', dpi=300)
+   #plt.show()
 
 
 if __name__=='__main__':
