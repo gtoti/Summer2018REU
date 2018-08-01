@@ -76,6 +76,8 @@ def train_keras(data,labels,config,epoch_num):
    return np.mean(scores), np.std(scores), con_matrix
 
 def Main(file):
+   np.seed.random(0)
+   
    data, labels = pre_process_data(file, pickled=False, feature_cols=[], label_col=-1, drop=['file_names'],
                                    one_hot=False, shuffle=True, standard_scale=True, index_col=0)
    input_num = data.shape[1]

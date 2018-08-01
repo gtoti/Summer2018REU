@@ -2,31 +2,19 @@
 '''
 authors: Chris Kim and Raymond Sutrisno
 
-Optimal model selected using a gridsearch: Architecture @ (12,8,5,4)
-										   Regularization @ L1
-										   Penalty @ 0.0001
-										   Epoch @ 700
-
-Cross-Validation Performance: 0.854 +/- 0.139
-Testing Performance: 0.857
-Confusion Matrix:
- [[0. 1. 0. 0.]
- [0. 1. 0. 0.]
- [0. 0. 2. 0.]
- [0. 0. 0. 3.]]
 '''
 
-import numpy as np
 from keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Dense
 from keras import regularizers
+
+import numpy as np
 from sklearn.metrics import confusion_matrix
 import pandas as pd
-import seaborn as sn
 import matplotlib.pyplot as plt
 import sys
-from sklearn.model_selection import StratifiedKFold # class proportions are preserved in each folder
+from sklearn.model_selection import StratifiedKFold, train_test_split
 from utils import *
 from ast import literal_eval
 
@@ -61,12 +49,12 @@ def get_validation_metrics(records, epoch):
 		scores.append(val_acc[epoch-1])
 	return np.mean(scores), np.std(scores)
 
-def train_keras(estimator, data, labels, epoch_num, n_splits=10):
+def train_keras(estimator, data, labels, epoch_num, n_splits=10, batch_size=10):
 	con_matrix_labels = sorted(np.unique(labels))
 	class_num = len(con_matrix_labels)
 	con_matrix = np.zeros(shape=(class_num,class_num))
 	
-	kfold = StratifiedKFold(n_splits=n_splits,random_state=1).split(data,labels)
+	kfold = StratifiedKFold(n_splits=n_splits,random_state=0).split(data,labels)
 	records = []
 
 	for j,(train,test) in enumerate(kfold):
@@ -77,7 +65,7 @@ def train_keras(estimator, data, labels, epoch_num, n_splits=10):
 						   to_categorical(labels[train],class_num),
 						   validation_data=(data[test],to_categorical(labels[test],class_num)),
 						   epochs=epoch_num,
-						   batch_size=10,
+						   batch_size=batch_size,
 						   verbose=0)
 		records.append(record.history)
 		predictions = model.predict_classes(data[test])
@@ -88,7 +76,7 @@ def train_keras(estimator, data, labels, epoch_num, n_splits=10):
 
 	return records, f1scores
 
-def train_keras_sequential(data,labels,config,epoch_num, reg, reg_grp, penalty, metric_count, e_list):
+def package_results(data,labels,config,epoch_num, reg, reg_grp, penalty, metric_count, e_list):
 	estimator = build_keras_sequential(architecture=config, reg=reg)
 	records, f1scores = train_keras(estimator, data, labels, epoch_num)
 	class_num = len(np.unique(labels))
@@ -113,24 +101,16 @@ def train_keras_sequential(data,labels,config,epoch_num, reg, reg_grp, penalty, 
 
 	return all_metrics # [score, std, config, regs, epoch, f1mean, class1f1, class2f2, ... , score, std, config, ... ]
 
-def gridsearch(file, metric_num, data, labels, first_layer, second_layer, epoch_col, reg_list):
+def gridsearch(file, metric_num, data, labels, first_layer, second_layer, epoch_list, regs):
 	metric_count = metric_num
-
-	input_num = data.shape[1]
-	output_num = np.unique(labels).shape[0]
-
-	first_layer_nodes = first_layer
-	second_layer_nodes = second_layer
-
-	epoch_list = epoch_col
 	epoch = 800
 	
+	input_num = data.shape[1]
+	output_num = np.unique(labels).shape[0]	
 	model_configurations = []
-	for i in first_layer_nodes:
-		for j in second_layer_nodes:
+	for i in first_layer:
+		for j in second_layer:
 			model_configurations.append((input_num, i, j, output_num))
-	
-	regs = reg_list
 
 	# Instantiate the dataset np.array that will contain all the metrics and parameters
 	epoch_num = len(epoch_list)
@@ -150,7 +130,7 @@ def gridsearch(file, metric_num, data, labels, first_layer, second_layer, epoch_
 					penalty = j
 				else: # Weights without regularization will not have a penalty
 					penalty = -1 
-				dataset[model_count] = train_keras_sequential(data, labels, config, epoch, reg, k, penalty, metric_count, epoch_list)
+				dataset[model_count] = package_results(data, labels, config, epoch, reg, k, penalty, metric_count, epoch_list)
 				model_count += 1
 
 	dataset = dataset.reshape(total*epoch_num, metric_count+output_num)
@@ -166,7 +146,7 @@ def gridsearch(file, metric_num, data, labels, first_layer, second_layer, epoch_
 
 	# Outputs dataframe to an Excel file
 	title = file[file.find('_')+1:file.find('.')]
-	writer = pd.ExcelWriter(title+'_gridsearch.xlsx') # file name
+	writer = pd.ExcelWriter('gridsearch_'+title+'_NN.xlsx') # file name
 	df.to_excel(writer,title)
 	writer.close()
 
@@ -236,59 +216,63 @@ def plot_learning_curve(title, data, labels, config, reg, epoch, ylim=None, trai
 	test_scores_mean = np.zeros(points_num)
 	test_scores_std = np.zeros(points_num)
 
+	estimator = build_keras_sequential(architecture=config, reg=reg)
+	start = 0
+
 	for k, size in enumerate(train_sizes):
 		print('-------------------------------------------------')
-		print('\nPlotting Training Percentage',size)
-		estimator = build_keras_sequential(architecture=config, reg=reg)
-		sample_num = int(size * data.shape[0])
-		select = np.random.choice(data.shape[0], sample_num, replace=False)
-		data_subset = data[select, :]
-		labels_subset = labels[select]
+		select = int(data.shape[0] * size)-1
+		print('\nCALCULATING WITH',select,'EXAMPLES ...')
+		data_subset = data[start:select, :]
+		labels_subset = labels[start:select]
 		records, f1scores = train_keras(estimator, data_subset, labels_subset, epoch)
 		train_scores_mean[k], train_scores_std[k] = get_training_metrics(records, epoch)
 		test_scores_mean[k], test_scores_std[k] = get_validation_metrics(records, epoch)
+		start += select-start
 		print('-------------------------------------------------')
 
 	plt.grid()
 
+	train_sizes = (train_sizes * data.shape[0]).astype(int)
+
 	plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
 					 train_scores_mean + train_scores_std, alpha=0.1, color="r")
 	plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
-					 test_scores_mean + test_scores_std, alpha=0.1, color="g")
+					 test_scores_mean + test_scores_std, alpha=0.1, color="b")
 	plt.plot(train_sizes, train_scores_mean, 'o-', color="r", label="Training score")
-	plt.plot(train_sizes, test_scores_mean, 'o-', color="g", label="Cross-validation score")
+	plt.plot(train_sizes, test_scores_mean, 'o-', color="b", label="Cross-validation score")
 
 	plt.legend(loc='lower right')
-	# plt.show()
 	return plt
 
 def Main(file):
 	metric_count = 6
+	seed = 0
+	np.random.seed(seed)
 	
 	first_layer_nodes = [10,8,5]
 	second_layer_nodes = [8,5]
 	epoch_list = [500,600,700,800]
-	# kernel_regularizer function applied to kernel weights matrix; activity_regularizer function applies to output of layer
 	regs = [[None],
 			[regularizers.l1(0.0001), regularizers.l1(0.001)],
 			[regularizers.l2(0.0001), regularizers.l2(0.001)]]
 
 	data, labels = pre_process_data(file, pickled=False, feature_cols=[], label_col=-1, drop=['file_names'],
-	                                   one_hot=False, shuffle=True, standard_scale=True, index_col=0)
-	i = len(labels) * 9//10
-	data_train = data[:i]
-	labels_train = labels[:i]
-	data_test = data[i:]
-	labels_test = labels[i:]
-	#gridsearch(file,metric_count, data_train, labels_train, first_layer_nodes, second_layer_nodes, epoch_list, regs)
-	df = pd.read_excel(file[9:-4]+'_gridsearch[archived].xlsx')
+	                                one_hot=False, shuffle=False, standard_scale=True, index_col=0)
+	data_train, data_test, labels_train, labels_test = train_test_split(data,labels,test_size=0.1,random_state=seed)
+
+	# gridsearch(file,metric_count, data_train, labels_train, first_layer_nodes, second_layer_nodes, epoch_list, regs)
+	df = pd.read_excel(r'C:/Users/chris/Documents/GitHub/Summer2018REU/shared_src/machine_learning/data/gridsearch_'+file[14:-7]+'_NN.xlsx')
 	df = df.sort_values(by=['Mean'],ascending=False)
 
 	output = []
 	configs = []
 	regs = []
 	epochs = []
-	for m_num in range(5):
+	m_nums = [0]
+	m_nums = [x for x in range(20)]
+	accs = []
+	for i, m_num in enumerate(m_nums):
 		plot_config = literal_eval(df.iloc[m_num]['Config'])
 		configs.append(str(plot_config))
 		reg = df.iloc[m_num]['Reg']
@@ -303,34 +287,35 @@ def Main(file):
 			plot_reg = None
 		plot_epoch = int(df.iloc[m_num]['Epoch'])
 		epochs.append(plot_epoch)
-
-
-		title = "Learning Curves (Neural Networks)"
-		print('PLOTTING Model',m_num+1,'...')
-		train_sizes=np.linspace(.25, 1.0, 7)
-		plot = plot_learning_curve(title, data_train, labels_train, plot_config, plot_reg, plot_epoch, train_sizes=train_sizes)
 		
-		print('TESTING Model',m_num+1,'...')
+		title = "Learning Curves (Neural Networks)"
+		print('PLOTTING MODEL ',i+1,'/', len(m_nums),'...')
+		train_sizes=np.linspace(.25, 1.0, 5)
+		#plot = plot_learning_curve(title, data_train, labels_train, plot_config, plot_reg, plot_epoch, train_sizes=train_sizes)	
+		
+		print('TESTING MODEL',i+1,'/', len(m_nums),'...')
 		acc, con_matrix =test_optimal_model(data_train, labels_train, data_test, labels_test, plot_config, plot_reg, plot_epoch)
-		output.append([acc,con_matrix,plot])
+		plot=None
+		output.append([acc,con_matrix, plot])
+		accs.append(acc)
 
-	scores_sorted = sorted(np.array([model[0] for model in output]))
-	for k,result in enumerate(output):
-		print('\nModel', k+1)
-		print('\tSorted',len(scores_sorted)-scores_sorted.index(result[0]), 'Best')
-		print('\tConfiguration:',configs[k])
-		print('\tRegularization:',regs[k])
-		print('\tNo. of Epochs:',epochs[k])
-		print('\tAccuracy:',result[0])
-		print('\tConfusion Marix:')
-		for row in result[1]:
+	for m_num in m_nums:
+		print('\nModel', m_num+1)
+		print('\tConfiguration:',configs[m_num])
+		print('\tRegularization:',regs[m_num])
+		print('\tNo. of Epochs:',epochs[m_num])
+		print('\tTesting Accuracy:', output[m_num][0])
+		print('\tConfusion Matrix:')
+		for row in output[m_num][1]:
 			print('\t\t',row)
-		f1scores = confusion_matrix_f1_scores(result[1])
-		for i,f1 in enumerate(f1scores):
-			print('\tf1, Class str(i+1):',f1)
-		result[2].show()
+		f1scores = confusion_matrix_f1_scores(output[m_num][1])
+		for j, f1 in enumerate(f1scores):
+			print('\tf1, Class'+str(j+1)+':', f1)
+		#for result in output:
+			#result[2].show()
+	print(np.transpose(np.array((m_num,accs))))
 
 if __name__=='__main__' and len(sys.argv) > 1:
 	import argparse
-	directory = sys.argv[1]
+	directory = '{}/{}'.format('data', sys.argv[1])
 	Main(directory)

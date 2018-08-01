@@ -3,8 +3,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold
-from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn import tree
 
 from utils import pre_process_data
@@ -63,4 +63,40 @@ def Main():
 
 if __name__=='__main__':
    Main()
+
+
+
+'''
+def test_forest(features, labels, model):
+   iterations = 100
+
+   con_matrix_labels = sorted(np.unique(labels))
+   con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
+   acc = []
+ 
+   for iteration in range(iterations):
+      train, test, train_labels, test_labels = train_test_split(features,
+                                                                labels,
+                                                                test_size=0.1)
+      model = model.fit(train,train_labels)
+      preds = model.predict(test)
+      con_matrix = con_matrix + confusion_matrix(test_labels,preds,labels=con_matrix_labels)
+      acc.append(accuracy_score(test_labels, preds))
+   print('Accuracy:',np.mean(acc),'+/-',np.std(acc)) 
+   print('Confusion Matrix:')
+   for row in con_matrix:
+      print('\t\t',row)
+
+def Main():
+   import sys
+   file_name = '{}/{}'.format('data', sys.argv[1])
+
+   features, labels = pre_process_data(
+                        file_name, pickled=False, label_col=-1,
+                        drop=["file_names"],
+                        shuffle=True, standard_scale=True, index_col=0)
+
+if __name__=='__main__':
+   Main()
+'''
 
