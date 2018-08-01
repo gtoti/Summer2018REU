@@ -35,6 +35,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import confusion_matrix
 import pandas as pd
+import seaborn as sn
+import matplotlib.pyplot as plt
 import sys
 from sklearn.model_selection import StratifiedKFold # class proportions are preserved in each folder
 from utils import *
@@ -47,21 +49,12 @@ def build_keras_sequential(activation='sigmoid', architecture=(12,5)):
       layer = Dense(units, activation=activation, input_dim=input_dim)
       model.add(layer)
       input_dim = units
-      '''
-      The optimizer RMSprop divides the gradient by a running average of its recent 
-      magnitude. It is usually a good choice for recurrent neural networks. We've seen
-      a sharp drop in performance with higher epoch numbers. This problem hasn't been
-      observed with the optimizer adam.
-      Loss function specific for multi-class classification problems.
-      '''
    model.compile(optimizer='adam',
                  loss='categorical_crossentropy',
                  metrics=['accuracy'])
    return model
 
-
-
-def train_keras_sequential(data,labels,config,epoch_num):
+def train_keras(data,labels,config,epoch_num):
    n_splits = 10
    con_matrix_labels = sorted(np.unique(labels))
    con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
@@ -83,15 +76,20 @@ def train_keras_sequential(data,labels,config,epoch_num):
    return np.mean(scores), np.std(scores), con_matrix
 
 def Main(file):
-   model_configurations = [
-      (12, 5),
-      (12, 8, 5),
-      (12, 10, 7, 5),
-   ]
-   epoch = [700,700,700]
-
+   np.seed.random(0)
+   
    data, labels = pre_process_data(file, pickled=False, feature_cols=[], label_col=-1, drop=['file_names'],
                                    one_hot=False, shuffle=True, standard_scale=True, index_col=0)
+   input_num = data.shape[1]
+   output_num = np.unique(labels).shape[0]
+
+   model_configurations = [
+      (input_num, output_num),
+      (input_num, 8, output_num),
+      (input_num, 10, 7, output_num),
+   ]
+   epoch = [800,800,800]
+
    means = []
    stds = []
    cms = []
@@ -105,18 +103,21 @@ def Main(file):
    for k in range(len(model_configurations)):
       print('\nModel Architecture:%2d'
             '\n\tScore: %.3f +/- %.3f' %(k+1, means[k], stds[k]))
-      # print('\tConfusion Matrix:\n', cms[k])
+      print('\tConfusion Matrix:\n', cms[k])
       f1scores = confusion_matrix_f1_scores(cms[k])
-      for k,f1 in enumerate(f1scores):
-         print('\tf1, Class '+str(k+1)+': %.3f' %(f1))
+      for i,f1 in enumerate(f1scores):
+         print('\tf1, Class '+str(i+1)+': %.3f' %(f1))
+      f1scores = [x for x in f1scores if str(x) != 'nan']
+      print('f1','Mean: %.3f' %np.mean(f1scores))
+      df_cm = pd.DataFrame(cms[k], index = [i for i in range(len(cms[k]))],
+                   columns = [i for i in range(cms[k].shape[0])])
+      plt.figure(figsize = (10,7))
+      sn.heatmap(df_cm, annot=True, annot_kws ={"size":20})
+      plt.show()
+
 
 if __name__=='__main__' and len(sys.argv) > 1:
    import argparse
    directory = sys.argv[1]
    Main(directory)
 
-
-## TTD: see whether if model needs to be recompiled with each k iteration so that it starts with random weights. look at fit documentation 
-##      part of train_keras_model
-
-## TTD: get confusion matrix, F1 scores as well 
