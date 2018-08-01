@@ -135,7 +135,7 @@ if __name__=='__main__':
    parser.add_argument('--seed', action='store',type=int,default=None,
    help=\
    """
-   If this flag is on, only the best parameter is printed out of all trials.
+   Seed for random number generator. Seed is set once before reading the file.
    """, dest="SEED")
 
    arguments = parser.parse_args()
