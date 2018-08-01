@@ -1,0 +1,11 @@
+
+Abstract
+
+With the increasing use of thin polymer film coatings in a variety of technological applications in industry, there exists a need for a theoretical framework which models the stability of these coatings with respect to certain thermodynamic hyperparameters. Contemporary approaches to modeling such relations involve a combinatorial approach to exploring the hyperparameter space and quantifying the degree of dewetting manually. To expedite this process, we look at techniques in image processing for feature extraction to use in a machine learning model for classification of dewetting stages based off of optical and spectral microcopy.
+
+
+Objective
+
+The Objective of this investigation is to investigate the viability of using machine learning in conjuction with image processing techniques to extract relevant features from microscopy images in orer to order to train a model for dewetting classification. For the use case of this model, we aim to achieve a 90% accuracy.
+
+
