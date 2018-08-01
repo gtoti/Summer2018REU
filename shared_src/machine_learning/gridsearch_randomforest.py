@@ -1,6 +1,7 @@
 
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold, GridSearchCV, learning_curve
+from sklearn.model_selection import StratifiedKFold,GridSearchCV,learning_curve
+from sklearn.metrics import confusion_matrix
 import sys
 from utils import *
 from matplotlib import pyplot as plt
@@ -24,7 +25,8 @@ def Main(file_nms, n_trials, k_folds, print_best,
       features_train = features[:i]
       labels_train   = labels[:i]
 
-      clfs = [GridSearchCV(RandomForestClassifier(),rand_forest_parameters,
+      np.random.seed() # reseed randomly
+      clfs = [GridSearchCV(RandomForestClassifier(), rand_forest_parameters,
               cv=k_folds,return_train_score=True, n_jobs=4)\
               .fit(features_train,labels_train) for i in range(n_trials)]
 
@@ -40,24 +42,75 @@ def Main(file_nms, n_trials, k_folds, print_best,
       results = sorted(results, key=lambda c:c[1], reverse=True)
       if print_results:
          if print_best:
-            print('{}      CV_score={:.4f}      Test_score={:.4f}'.format(*results[0]))
+            print('{}      CV_score={:.4f}      Test_score={:.4f}'.
+                                                format(*results[0]))
          else:
             print('\n'.join(
                 'Best Params={}      CV_score={:.4f}      Test_score={:.4f}'\
                 .format(*c) for c in results))
 
-
       # make learning curves
       best_model_param = results[0][0]
-      generate_learning_curve(file_nm, best_model_param, features_train, labels_train)
+      generate_learning_curve(
+         file_nm, best_model_param, features_train, labels_train,
+         features_test, labels_test, seed=seed)
+
+      # evaluate final accuracy
+      kfoldCV, test_score, con_matrix = evaluate_final_accuracy(
+                     file_nm, best_model_param, features_train, labels_train,
+                     features_test, labels_test, kfolds=k_folds, seed=seed)
+
+      print('LC -> CV(mean:{:.4f},std:{:.4f}), test_score(mean:{:.4f},std:{:.4f})'.format(
+            *kfoldCV, *test_score))
+      print('LC -> confusion_matrix:\n', con_matrix)
+
+      F1_scores = confusion_matrix_f1_scores(con_matrix)
+      print('LC -> F1:\n', F1_scores)
+
+# end of def Main
 
 
-def generate_learning_curve(file_nm, best_params, features_train, labels_train):
-   train_sizes, train_scores, cv_scores =\
-                  learning_curve(
-                  estimator=RandomForestClassifier(**best_params),
-                  X=features_train, y=labels_train,
-                  train_sizes=np.linspace(0.1, 1, 10), cv=10, n_jobs=4)
+def evaluate_final_accuracy(file_nm, best_params, features_train, labels_train,
+                            features_test, labels_test, kfolds=10, seed=None):
+
+   np.random.seed(seed)
+
+   test_score = []
+   con_matrix_labels = sorted(np.unique(np.append(labels_train, labels_test)))
+   con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
+
+   def model_callback(model, train, test):
+      nonlocal test_score
+      nonlocal con_matrix
+      test_score.append(model.score(features_test, labels_test))
+
+      y_ = labels_train[test]
+      y = model.predict(features_train[test])
+      con_matrix += confusion_matrix(y_, y, labels=con_matrix_labels)
+
+   kfoldCV= kFold_Scikit_Model_Trainer(
+                        features_train, labels_train,
+                        lambda:RandomForestClassifier(**best_params, n_jobs=4),
+                        return_scores=True, kfold_splits=kfolds,
+                        model_callback=model_callback)
+
+   test_score = np.mean(test_score), np.std(test_score)
+   kfoldCV = kfoldCV[0], np.std(kfoldCV[1])
+
+   return kfoldCV, test_score, con_matrix
+
+
+def generate_learning_curve(file_nm, best_params, features_train, labels_train,
+                            features_test, labels_test, seed=None):
+
+   model = RandomForestClassifier(**best_params, n_jobs=4)
+
+   np.random.seed(seed)
+   train_sizes, train_scores, cv_scores = learning_curve(
+                     estimator=model,
+                     X=features_train, y=labels_train,
+                     train_sizes=np.linspace(0.1, 1, 10),
+                     cv=10, n_jobs=4)
 
    train_mean = np.mean(train_scores, axis=1)
    train_std  = np.std(train_scores, axis=1)
@@ -81,9 +134,10 @@ def generate_learning_curve(file_nm, best_params, features_train, labels_train):
    plt.ylabel('Accuracy')
    plt.legend(loc='lower right')
    plt.ylim([0.5, 1.0])
+   plt.title('Learning Curve for :'+file_nm)
    plt.savefig(file_nm+'_figure.png', dpi=300)
-   #plt.show()
 
+# end of def generate_learning_curve
 
 if __name__=='__main__':
    import argparse
