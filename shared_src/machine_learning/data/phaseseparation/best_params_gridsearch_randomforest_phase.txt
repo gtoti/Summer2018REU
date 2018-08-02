@@ -1,0 +1,63 @@
+
+
+
+
+Results for : data/features_phaseseparation_NN.csv
+GridSearch CV_stats -> mean:0.8882, std:0.0078
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8994      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8994      Test_score=0.6842
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8994      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}      CV_score=0.8994      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8994      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}      CV_score=0.8994      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8994      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}      CV_score=0.8994      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8994      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8935      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8935      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8935      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 10}      CV_score=0.8935      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8935      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8935      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8935      Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8935      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}      CV_score=0.8935      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8935      Test_score=0.8421
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}      CV_score=0.8876      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8876      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8876      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8876      Test_score=0.6842
+Best Params={'criterion': 'entropy', 'max_features': 'auto', 'n_estimators': 10}      CV_score=0.8876      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}      CV_score=0.8876      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8876      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8876      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}      CV_score=0.8876      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8817      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}      CV_score=0.8817      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8817      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}      CV_score=0.8817      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 15}      CV_score=0.8817      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8817      Test_score=0.7895
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8817      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 50}      CV_score=0.8817      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 20}      CV_score=0.8757      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 10}      CV_score=0.8757      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8757      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8757      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 100}      CV_score=0.8757      Test_score=0.6842
+Best Params={'criterion': 'gini', 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8757      Test_score=0.7368
+Best Params={'criterion': 'gini', 'max_features': None, 'n_estimators': 25}      CV_score=0.8698      Test_score=0.6316
+LC -> CV(mean:0.8806,std:0.1194), test_score(mean:0.7263,std:0.0774)
+LC -> confusion_matrix:
+ [[34.  7.  1.]
+ [ 2. 61.  3.]
+ [ 3.  4. 54.]]
+LC -> F1:
+ [0.83950617 0.88405797 0.90756303]
