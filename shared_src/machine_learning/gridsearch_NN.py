@@ -17,6 +17,7 @@ import sys
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from utils import *
 from ast import literal_eval
+import os
 
 def build_keras_sequential(activation='sigmoid', architecture=(12,5), reg=None):
 	model = Sequential()
@@ -149,36 +150,6 @@ def gridsearch(file, metric_num, data, labels, first_layer, second_layer, epoch_
 	writer = pd.ExcelWriter('data/gridsearch_'+title+'_NN.xlsx') # file name
 	df.to_excel(writer,title)
 	writer.close()
-def test_optimal_model(data_train, labels_train, data_test, labels_test, config, reg, epoch):
-	n_splits = 10
-	con_matrix_labels = sorted(np.unique(labels_train))
-	class_num = len(con_matrix_labels)
-	con_matrix = np.zeros(shape=(class_num,class_num))
-
-	model = build_keras_sequential(architecture=config, reg=reg)
-	model.fit(data_train,
-			  to_categorical(labels_train,class_num),
-			  epochs=epoch,
-			  batch_size=10,
-			  verbose=0)
-	score = model.evaluate(data_test,to_categorical(labels_test,class_num),batch_size=10,verbose=0) # score = [test loss, test accuracy]
-	predictions = model.predict_classes(data_test)
-	con_matrix = con_matrix + confusion_matrix(labels_test,predictions,labels=con_matrix_labels)
-
-	#f1scores is 1D np.array with the f1 scores for each classification
-	f1scores = confusion_matrix_f1_scores(con_matrix)
-
-	# Drops any NaN f1 scores to compute the mean f1score
-	f1scores_noNaN = [x for x in f1scores if str(x) != 'nan']
-
-	print('---------------------------------------------------------------------------')
-	print('Testing Neural Network with Optimal Hyperparameters (Architecture @',str(config),', Epochs @',epoch)
-	print('___________________________________________________________________________')
-	print('Testing Accuracy:',score[1])
-	print('Confusion Matrix:\n',con_matrix)
-	print('---------------------------------------------------------------------------')
-
-	return score[1], con_matrix
 def plot_learning_curve(title, data, labels, config, reg, epoch, ylim=None, train_sizes=np.linspace(.1, 1.0, 5), reuse=True):
 	"""
 	Parameters
@@ -330,7 +301,7 @@ def useless_method_archived_learning_curve_main():
 	'''
 
 def new_build_and_train(data, labels, config, reg, epoch_num, n_splits=10, batch_size=10):
-	n_splits = 2
+	n_splits = n_splits
 
 	con_matrix_labels = sorted(np.unique(labels))
 	class_num = len(con_matrix_labels)
@@ -369,7 +340,7 @@ def plot_epoch_curve(title, records, epoch_list):
 	for i, epoch in enumerate(epoch_list):
 		train_scores_mean[i], train_scores_std[i] = get_training_metrics(records, epoch)
 		test_scores_mean[i], test_scores_std[i] = get_validation_metrics(records, epoch)
-		metrics_by_model[i] = [train_scores_mean[i], train_scores_std[i], test_scores_mean[i], test_scores_std[i], title[20:-5], epoch]
+		metrics_by_model[i] = [train_scores_mean[i], train_scores_std[i], test_scores_mean[i], test_scores_std[i], title[20:-4], epoch]
 
 	plt.grid()
 
@@ -393,10 +364,11 @@ def new_gridsearch(data, labels, layer1, layer2, regs, abridged):
 	input_num = data.shape[1]
 	output_num = np.unique(labels).shape[0]	
 	model_configurations = []
+
 	for i in layer1:
 		for j in layer2:
 			model_configurations.append((input_num, i, j, output_num))
-	
+		
 	model_count=0
 	reg_grp_dict = {0:'none', 1:'l1', 2:'l2'}
 	penalty_dict = {-1:'',0:'-4',1:'-3'}
@@ -415,16 +387,18 @@ def new_gridsearch(data, labels, layer1, layer2, regs, abridged):
 				else: # Weights without regularization will not have a penalty
 					penalty = -1
 				if abridged:
-					title = 'epochplots_woClass0/'+str(config)+'.'+reg_grp_dict[k]+penalty_dict[k]+'.png'
+					title = 'epochplots_woClass0/'+str(config)+'.'+reg_grp_dict[k]+penalty_dict[penalty]+'.png'
 				else:
-					title = 'epochplots_wClass0/'+str(config)+'.'+reg_grp_dict[k]+penalty_dict[k]+'.png'
-				dataset[model_count : model_count + (total*len(epoch_list))] = plot_epoch_curve(title, records, epoch_list)
+					title = 'epochplots_wClass0/'+str(config)+'.'+reg_grp_dict[k]+penalty_dict[penalty]+'.png'
+				index = model_count * len(epoch_list)
+				dataset[index : index + len(epoch_list)] = plot_epoch_curve(title, records, epoch_list)
 				model_count += 1	
 			
-		
+		# saves output every configuration change (every 5 models)
+
 		# Creates a dataframe of the np.array containing all the metrics and parameters
 		df = pd.DataFrame(dataset)
-		df = df.rename({0:'Mean_Train',1:'Std_Train',2:'Mean_Test',3:'Std_Test', 4:'Config',5:'Reg',6:'Epoch'}, axis = 'columns')
+		df = df.rename({0:'Mean_Train',1:'Std_Train',2:'Mean_Test',3:'Std_Test', 4:'Parameters',5:'Epoch'}, axis = 'columns')
 		df = df.sort_values(by=['Mean_Test'], ascending = False)
 	
 		# Outputs dataframe to an Excel file
@@ -433,7 +407,83 @@ def new_gridsearch(data, labels, layer1, layer2, regs, abridged):
 		df.to_excel(writer,title)
 		writer.close()
 
+def test_optimal_model(data_train, labels_train, data_test, labels_test, config, reg, epoch):
+	n_splits = 10
+	con_matrix_labels = sorted(np.unique(labels_train))
+	class_num = len(con_matrix_labels)
+	con_matrix = np.zeros(shape=(class_num,class_num))
 
+	model = build_keras_sequential(architecture=config, reg=reg)
+	model.fit(data_train,
+			  to_categorical(labels_train,class_num),
+			  epochs=epoch,
+			  batch_size=10,
+			  verbose=0)
+	score = model.evaluate(data_test,to_categorical(labels_test,class_num),batch_size=10,verbose=0) # score = [test loss, test accuracy]
+	predictions = model.predict_classes(data_test)
+	con_matrix = con_matrix + confusion_matrix(labels_test,predictions,labels=con_matrix_labels)
+
+	#f1scores is 1D np.array with the f1 scores for each classification
+	f1scores = confusion_matrix_f1_scores(con_matrix)
+
+	# Drops any NaN f1 scores to compute the mean f1score
+	f1scores_noNaN = [x for x in f1scores if str(x) != 'nan']
+
+	print('Testing Neural Network with Optimal Hyperparameters (Architecture @',str(config),', Epochs @',epoch)
+
+	return score[1], con_matrix
+
+def test_at_epoch(data_train, labels_train, data_test, labels_test, abridged, specs):
+	if abridged is True:
+		path = 'epochplots_woClass0/Interpreted'
+	else:
+		path = 'epochplots_wClass0/Interpreted'
+	dirs = os.listdir(path)
+	outputs = []
+	if specs == None:
+		for file in dirs:
+			config = literal_eval(file[:file.find('.')])
+			reg_str = file[file.find('.')+1:file.find('_')]
+			if reg_str == 'none':
+				reg = None
+			else:
+				if reg_str[:2] == 'l1':
+					reg = regularizers.l1(10**int(reg_str[-2:]))
+				elif reg_str[:2] == 'l2':
+					reg = regularizers.l2(10**int(reg_str[-2:]))
+				else:
+					assert(False), 'Regularizer not identified'
+			epoch = file[file.find('_')+1:]
+			epoch = epoch[:epoch.find('.')]
+			if epoch.find(',') == -1:
+				epoch = [epoch]
+			else:
+				epoch = epoch.split(',')
+			for e in epoch:
+				e = int(e)
+				acc, con_matrix =test_optimal_model(data_train, labels_train, data_test, labels_test, config, reg, e)
+				outputs.append([config, reg_str, e, acc, con_matrix])
+	else:
+		inputs = data_train.shape[1]
+		classes = np.unique(labels_train).shape[0]	
+		for spec in specs:
+			config = (inputs, spec[0], spec[1], classes)
+			epoch = spec[4]
+			acc, con_matrix =test_optimal_model(data_train, labels_train, data_test, labels_test, config, spec[2], epoch)
+			outputs.append([config, spec[3], epoch, acc, con_matrix])
+
+	for k,output in enumerate(outputs):
+		print('\nModel', k+1)
+		print('\tConfiguration:',output[0])
+		print('\tRegularization:',output[1])
+		print('\tNo. of Epochs:',output[2])
+		print('\tTesting Accuracy:', output[3])
+		print('\tConfusion Matrix:')
+		for row in output[4]:
+			print('\t\t',row)
+		f1scores = confusion_matrix_f1_scores(output[4])
+		for j, f1 in enumerate(f1scores):
+			print('\tf1, Class'+str(j+1)+':', f1)
 
 def Main(file, cpu, abridged):
 	metric_count = 6
@@ -441,21 +491,41 @@ def Main(file, cpu, abridged):
 	np.random.seed(seed)
 	
 	testable = False
+	specs = None
+
+	nodes1 = [10,8,5]
+	nodes2 = [8,5]
+	regs = [[None],
+			[regularizers.l1(0.0001), regularizers.l1(0.001)],
+			[regularizers.l2(0.0001), regularizers.l2(0.001)]]
 
 	if cpu == 0:
-		nodes1 = [10,8,5]
-		nodes2 = [8,5]
-		regs = [[None],
-				[regularizers.l1(0.0001), regularizers.l1(0.001)],
-				[regularizers.l2(0.0001), regularizers.l2(0.001)]]
 		testable = True
 	elif cpu == 1:
-		nodes1 = [8]
-		nodes2 = [8]
-		regs = [[None],[],[]]
+		# For dewetting without Classes 0 and 1
+		specs = [[10,5,regularizers.l1(0.0001),'l1-4',575],
+				 [10,5,regularizers.l2(0.001),'l2-3',725],
+				 [10,5,regularizers.l2(0.0001),'l2-4',700],
+				 [5,5,regularizers.l1(0.001),'l1-3',650],
+				 [10,5,regularizers.l1(0.0001),'l1-4',625],
+				 [5,5,regularizers.l2(0.0001),'l2-4',450],
+				 [5,5,None,'None',500],
+				 [5,8,regularizers.l2(0.001),'l2-3',575],
+				 [5,8,regularizers.l2(0.0001),'l2-4',600],
+				 [8,8,regularizers.l2(0.0001),'l2-4',525]]
 		testable = True
 	elif cpu == 2:
-		testable == False
+		# For dewetting without Class 1 only
+		specs = [[10,5,regularizers.l1(0.0001),'l1-4',675],
+				 [10,5,regularizers.l2(0.001),'l2-3',675],
+				 [10,5,None,'None',725],
+				 [10,8,regularizers.l1(0.001),'l1-3',575],
+				 [5,5,regularizers.l1(0.001),'l1-3',675],
+				 [5,8,regularizers.l1(0.001),'l1-3',525],
+				 [8,5,regularizers.l1(0.001),'l1-3',725],
+				 [8,5,regularizers.l1(0.0001),'l1-4',600],
+				 [8,8,regularizers.l1(0.001),'l1-3',625]]
+		testable = True
 	else:
 		testable == False
 
@@ -463,8 +533,8 @@ def Main(file, cpu, abridged):
 
 	data, labels = pre_process_data(file, pickled=False, feature_cols=[], label_col=-1, drop=['file_names'],
 	                                one_hot=False, shuffle=True, standard_scale=True, index_col=0)
-	
-	data_train, data_test, labels_train, labels_test = train_test_split(data,labels,test_size=0.1,random_state=seed)
+	test_size = 0.2
+	data_train, data_test, labels_train, labels_test = train_test_split(data,labels,test_size=test_size,random_state=seed)
 
 	# inserts class 0 example into testing set, if existent
 	if abridged is not True:
@@ -472,10 +542,10 @@ def Main(file, cpu, abridged):
 		data_test = np.append(data_test, [data_train[-6]], axis = 0)
 		labels_train = np.delete(labels_train,-6)
 		data_train = np.delete(data_train,-6,axis=0)
-
 	new_gridsearch(data_train, labels_train, nodes1, nodes2, regs, abridged)
 
-
+	#test_at_epoch(data_train, labels_train, data_test, labels_test, abridged, specs)
+	
 
 if __name__=='__main__' and len(sys.argv) > 1:
 	import argparse
