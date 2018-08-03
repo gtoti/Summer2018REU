@@ -1,0 +1,598 @@
+DEWETTING WO CLASS 1 @ 0.1 TEST_SPLIT
+
+        Model 2
+        Configuration: (12, 10, 5, 4)
+        Regularization: l1-4
+        No. of Epochs: 675
+        Testing Accuracy: 0.875
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 0. 2.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.8571428571428572
+        f1, Class4: 1.0
+        
+        Model 3
+        Configuration: (12, 10, 5, 4)
+        Regularization: l2-3
+        No. of Epochs: 675
+        Testing Accuracy: 0.75
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 1. 1.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.7499999999999999
+        f1, Class4: 0.6666666666666666
+        
+        Model 5
+        Configuration: (12, 10, 5, 4)
+        Regularization: none
+        No. of Epochs: 725
+        Testing Accuracy: 0.75
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 1. 1.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.7499999999999999
+        f1, Class4: 0.6666666666666666
+        
+        Model 6
+        Configuration: (12, 10, 8, 4)
+        Regularization: l1-3
+        No. of Epochs: 575
+        Testing Accuracy: 0.875
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 0. 2.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.8571428571428572
+        f1, Class4: 1.0
+        
+        Model 12
+        Configuration: (12, 5, 5, 4)
+        Regularization: l1-3
+        No. of Epochs: 675
+        Testing Accuracy: 0.75
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 0. 2. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 0. 2.]
+        f1, Class1: 1.0
+        f1, Class2: nan
+        f1, Class3: 0.7499999999999999
+        f1, Class4: 1.0
+        
+        Model 17
+        Configuration: (12, 5, 8, 4)
+        Regularization: l1-3
+        No. of Epochs: 525
+        Testing Accuracy: 0.875
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 0. 2.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.8571428571428572
+        f1, Class4: 1.0
+        
+        Model 23
+        Configuration: (12, 8, 5, 4)
+        Regularization: l1-3
+        No. of Epochs: 725
+        Testing Accuracy: 0.875
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 1. 1. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 0. 2.]
+        f1, Class1: 1.0
+        f1, Class2: 0.6666666666666666
+        f1, Class3: 0.8571428571428572
+        f1, Class4: 1.0
+        
+        Model 24
+        Configuration: (12, 8, 5, 4)
+        Regularization: l1-4
+        No. of Epochs: 600
+        Testing Accuracy: 0.75
+        Confusion Matrix:
+                 [0. 0. 1. 0.]
+                 [0. 2. 0. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 1. 1.]
+        f1, Class1: nan
+        f1, Class2: 1.0
+        f1, Class3: 0.7499999999999999
+        f1, Class4: 0.6666666666666666
+        
+        Model 29
+        Configuration: (12, 8, 8, 4)
+        Regularization: l1-3
+        No. of Epochs: 625
+        Testing Accuracy: 0.875
+        Confusion Matrix:
+                 [1. 0. 0. 0.]
+                 [0. 2. 0. 0.]
+                 [0. 0. 3. 0.]
+                 [0. 0. 1. 1.]
+        f1, Class1: 1.0
+        f1, Class2: 1.0
+        f1, Class3: 0.8571428571428572
+        f1, Class4: 0.6666666666666666
+
+
+
+DEWETTING WO CLASS 0 AND 1 @ 0.1 TEST_SPLIT:
+        Model 39
+        Configuration: (12, 8, 8, 3)
+        Regularization: l2-4
+        No. of Epochs: 525
+        Testing Accuracy: 0.8333333134651184
+        Confusion Matrix:
+                 [1. 1. 0.]
+                 [0. 3. 0.]
+                 [0. 0. 1.]
+        f1, Class1: 0.6666666666666666
+        f1, Class2: 0.8571428571428572
+        f1, Class3: 1.0 
+
+        
+
+
+
+Trained with 20% testing-train split:
+
+w/o Class 1:
+        Model 15
+                Configuration: (12, 5, 5, 4)
+                Regularization: l1-3
+                No. of Epochs: 550
+                Testing Accuracy: 0.785714294229235
+                Confusion Matrix:
+                         [0. 1. 0. 0.]
+                         [0. 2. 1. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 1. 5.]
+                f1, Class1: nan
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8
+                f1, Class4: 0.9090909090909091
+        
+        Model 16
+                Configuration: (12, 5, 5, 4)
+                Regularization: l1-3
+                No. of Epochs: 800
+                Testing Accuracy: 0.7857142771993365
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 0. 3. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: 1.0
+                f1, Class2: nan
+                f1, Class3: 0.7272727272727273
+                f1, Class4: 1.0
+        
+        Model 24
+                Configuration: (12, 5, 5, 4)
+                Regularization: none
+                No. of Epochs: 800
+                Testing Accuracy: 0.8571428656578064
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: 1.0
+                f1, Class2: 0.5
+                f1, Class3: 0.8
+                f1, Class4: 1.0
+        
+        Model 25 *****************
+                Configuration: (12, 5, 8, 4)
+                Regularization: l1-3
+                No. of Epochs: 650
+                Testing Accuracy: 1.0
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 3. 0. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: 1.0
+                f1, Class2: 1.0
+                f1, Class3: 1.0
+                f1, Class4: 1.0
+        
+        Model 29
+                Configuration: (12, 5, 8, 4)
+                Regularization: l1-4
+                No. of Epochs: 800
+                Testing Accuracy: 0.785714294229235
+                Confusion Matrix:
+                         [0. 1. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: nan
+                f1, Class2: 0.4
+                f1, Class3: 0.8
+                f1, Class4: 1.0
+        
+        Model 30
+                Configuration: (12, 5, 8, 4)
+                Regularization: l2-3
+                No. of Epochs: 425
+                Testing Accuracy: 0.7857142771993365
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 1. 5.]
+                f1, Class1: 1.0
+                f1, Class2: 0.5
+                f1, Class3: 0.7272727272727273
+                f1, Class4: 0.9090909090909091
+        
+        Model 35
+                Configuration: (12, 8, 5, 4)
+                Regularization: l1-3
+                No. of Epochs: 800
+                Testing Accuracy: 0.7857142771993365
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 0. 3. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: 1.0
+                f1, Class2: nan
+                f1, Class3: 0.7272727272727273
+                f1, Class4: 1.0
+        
+        Model 40
+                Configuration: (12, 8, 8, 4)
+                Regularization: l1-3
+                No. of Epochs: 475
+                Testing Accuracy: 0.8571428656578064
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 0. 6.]
+                f1, Class1: 1.0
+                f1, Class2: 0.5
+                f1, Class3: 0.8
+                f1, Class4: 1.0
+        
+        Model 41
+                Configuration: (12, 8, 8, 4)
+                Regularization: l1-4
+                No. of Epochs: 500
+                Testing Accuracy: 0.7857142771993365
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 1. 5.]
+                f1, Class1: 1.0
+                f1, Class2: 0.5
+                f1, Class3: 0.7272727272727273
+                f1, Class4: 0.9090909090909091
+        
+        Model 42
+                Configuration: (12, 8, 8, 4)
+                Regularization: l1-4
+                No. of Epochs: 650
+                Testing Accuracy: 0.7857142771993365
+                Confusion Matrix:
+                         [1. 0. 0. 0.]
+                         [0. 1. 2. 0.]
+                         [0. 0. 4. 0.]
+                         [0. 0. 1. 5.]
+                f1, Class1: 1.0
+                f1, Class2: 0.5
+                f1, Class3: 0.7272727272727273
+                f1, Class4: 0.9090909090909091
+
+
+w/o Classes 0 and 1:     
+        Model 6
+                Configuration: (12, 10, 5, 3)
+                Regularization: l2-3
+                No. of Epochs: 550
+                Testing Accuracy: 0.8333333134651184
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.8
+                f1, Class3: 1.0
+        
+        Model 7
+                Configuration: (12, 10, 5, 3)
+                Regularization: l2-4
+                No. of Epochs: 450
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 8
+                Configuration: (12, 10, 5, 3)
+                Regularization: l2-4
+                No. of Epochs: 550
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 9
+                Configuration: (12, 10, 5, 3)
+                Regularization: none
+                No. of Epochs: 475
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 10
+                Configuration: (12, 10, 8, 3)
+                Regularization: l1-3
+                No. of Epochs: 675
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 11
+                Configuration: (12, 10, 8, 3)
+                Regularization: l1-4
+                No. of Epochs: 550
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 13
+                Configuration: (12, 10, 8, 3)
+                Regularization: l1-4
+                No. of Epochs: 800
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+
+        Model 16
+                Configuration: (12, 10, 8, 3)
+                Regularization: none
+                No. of Epochs: 575
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 20
+                Configuration: (12, 5, 5, 3)
+                Regularization: l1-4
+                No. of Epochs: 800
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+                
+        Model 22
+                Configuration: (12, 5, 5, 3)
+                Regularization: l2-3
+                No. of Epochs: 700
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 23
+                Configuration: (12, 5, 5, 3)
+                Regularization: l2-4
+                No. of Epochs: 625
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 27
+                Configuration: (12, 5, 8, 3)
+                Regularization: l2-3
+                No. of Epochs: 700
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 28
+                Configuration: (12, 5, 8, 3)
+                Regularization: l2-4
+                No. of Epochs: 700
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+
+        Model 35
+                Configuration: (12, 8, 5, 3)
+                Regularization: l1-4
+                No. of Epochs: 800
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 36
+                Configuration: (12, 8, 5, 3)
+                Regularization: l2-3
+                No. of Epochs: 425
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 1. 1.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.8
+                f1, Class3: 0.6666666666666666
+        
+        Model 37
+                Configuration: (12, 8, 5, 3)
+                Regularization: l2-4
+                No. of Epochs: 675
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 38
+                Configuration: (12, 8, 5, 3)
+                Regularization: l2-4
+                No. of Epochs: 800
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+
+        Model 40
+                Configuration: (12, 8, 8, 3)
+                Regularization: l1-3
+                No. of Epochs: 650
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 41
+                Configuration: (12, 8, 8, 3)
+                Regularization: l1-4
+                No. of Epochs: 425
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 42
+                Configuration: (12, 8, 8, 3)
+                Regularization: l2-3
+                No. of Epochs: 650
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 4. 0.]
+                         [0. 1. 2.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.7272727272727273
+                f1, Class3: 0.8
+        
+        Model 43
+                Configuration: (12, 8, 8, 3)
+                Regularization: l2-4
+                No. of Epochs: 525
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
+        Model 45
+                Configuration: (12, 8, 8, 3)
+                Regularization: none
+                No. of Epochs: 800
+                Testing Accuracy: 0.7500000099341074
+                Confusion Matrix:
+                         [3. 2. 0.]
+                         [0. 3. 1.]
+                         [0. 0. 3.]
+                f1, Class1: 0.7499999999999999
+                f1, Class2: 0.6666666666666666
+                f1, Class3: 0.8571428571428572
+        
