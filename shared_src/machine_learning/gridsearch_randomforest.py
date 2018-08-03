@@ -33,14 +33,14 @@ def Main(file_nms, n_trials, k_folds, print_best,
       results = [(c.best_params_,c.best_score_,\
                   c.score(features_test, labels_test)) for c in clfs]
 
-      print("\n\n\n\nResults for :", file_nm)
-
-      CV_stats = np.array(list(c[1] for c in results))
-      CV_stats = np.mean(CV_stats), np.std(CV_stats)
-      print('GridSearch CV_stats -> mean:{:.4f}, std:{:.4f}'.format(*CV_stats))
-
       results = sorted(results, key=lambda c:c[1], reverse=True)
+
       if print_results:
+         CV_stats = np.array(list(c[1] for c in results))
+         CV_stats = np.mean(CV_stats), np.std(CV_stats)
+         print("\n\n\n\nResults for :", file_nm)
+         print('GridSearch CV_stats -> mean:{:.4f}, std:{:.4f}'.format(*CV_stats))
+
          if print_best:
             print('{}      CV_score={:.4f}      Test_score={:.4f}'.
                                                 format(*results[0]))
@@ -49,20 +49,25 @@ def Main(file_nms, n_trials, k_folds, print_best,
                 'Best Params={}      CV_score={:.4f}      Test_score={:.4f}'\
                 .format(*c) for c in results))
 
+
       # make learning curves
       best_model_param = results[0][0]
       generate_learning_curve(
          file_nm, best_model_param, features_train, labels_train,
          features_test, labels_test, seed=seed)
 
+
       # evaluate final accuracy
-      kfoldCV, test_score, con_matrix = evaluate_final_accuracy(
+      kfoldCV, test_score, con_matrix, test_con_matrix= evaluate_final_accuracy(
                      file_nm, best_model_param, features_train, labels_train,
                      features_test, labels_test, kfolds=k_folds, seed=seed)
 
-      print('LC -> CV(mean:{:.4f},std:{:.4f}), test_score(mean:{:.4f},std:{:.4f})'.format(
-            *kfoldCV, *test_score))
+
+      print('LC -> CV(mean:{:.4f},std:{:.4f}), test_score(mean:{:.4f},std:{:.4f})'\
+            .format(*kfoldCV, *test_score))
+
       print('LC -> confusion_matrix:\n', con_matrix)
+      print('LC -> confusion_matrix testing:\n', test_con_matrix)
 
       F1_scores = confusion_matrix_f1_scores(con_matrix)
       print('LC -> F1:\n', F1_scores)
@@ -78,6 +83,8 @@ def evaluate_final_accuracy(file_nm, best_params, features_train, labels_train,
    test_score = []
    con_matrix_labels = sorted(np.unique(np.append(labels_train, labels_test)))
    con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
+
+   test_con_matrix = np.zeros(shape=(len(con_matrix_labels), len(con_matrix_labels)))
 
    def model_callback(model, train, test):
       nonlocal test_score
@@ -97,7 +104,13 @@ def evaluate_final_accuracy(file_nm, best_params, features_train, labels_train,
    test_score = np.mean(test_score), np.std(test_score)
    kfoldCV = kfoldCV[0], np.std(kfoldCV[1])
 
-   return kfoldCV, test_score, con_matrix
+   full_model = RandomForestClassifier(**best_params, n_jobs=4).\
+                     fit(features_train, labels_train)
+   y_ = labels_test
+   y = full_model.predict(features_test)
+   test_con_matrix = confusion_matrix(y_, y, labels=con_matrix_labels)
+
+   return kfoldCV, test_score, con_matrix, test_con_matrix
 
 
 def generate_learning_curve(file_nm, best_params, features_train, labels_train,
@@ -138,6 +151,7 @@ def generate_learning_curve(file_nm, best_params, features_train, labels_train,
    plt.savefig(file_nm+'_figure.png', dpi=300)
 
 # end of def generate_learning_curve
+
 
 if __name__=='__main__':
    import argparse
@@ -200,12 +214,15 @@ if __name__=='__main__':
    k_folds = arguments.KFOLDNUM
    print_best = arguments.BEST
    print_results = arguments.PRINT
-   seed = arguments.SEED if arguments.SEED is not None else 582707
+   #seed = arguments.SEED if arguments.SEED is not None else 582707
+   seed = arguments.SEED
 
    rand_forest_parameters = {
       'n_estimators':(10,15,20,25,50,100),
       'max_features':(None, 'auto'),
-      'criterion':('gini','entropy')
+      #'criterion':('gini','entropy')
+      'max_depth':(2,3,4,5,6,7,8,9,10)
+      #'max_depth':(4,)
    }
 
    if print_params:
