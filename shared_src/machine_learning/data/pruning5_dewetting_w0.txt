@@ -1,0 +1,69 @@
+
+
+
+
+Results for : data/features_dewetting.csv
+GridSearch CV_stats -> mean:0.8216, std:0.0149
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8600      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8600      Test_score=0.4615
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8400      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 25}      CV_score=0.8400      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8400      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 15}      CV_score=0.8400      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 10}      CV_score=0.8400      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8400      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8400      Test_score=0.3846
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8400      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8400      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 15}      CV_score=0.8400      Test_score=0.8462
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 25}      CV_score=0.8200      Test_score=0.8462
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 25}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 25}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 15}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8200      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 15}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8200      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 20}      CV_score=0.8200      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8200      Test_score=0.5385
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8200      Test_score=0.6923
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 20}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8200      Test_score=0.8462
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 100}      CV_score=0.8200      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 100}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 50}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 25}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 50}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 15}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 15}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': 'auto', 'n_estimators': 50}      CV_score=0.8000      Test_score=0.6154
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 25}      CV_score=0.8000      Test_score=0.7692
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8000      Test_score=0.8462
+Best Params={'max_depth': 5, 'max_features': None, 'n_estimators': 10}      CV_score=0.8000      Test_score=0.8462
+LC -> CV(mean:0.7607,std:0.1566), test_score(mean:0.6846,std:0.1164)
+LC -> confusion_matrix:
+ [[ 2.  0.  0.  0.]
+ [ 0.  2.  3.  0.]
+ [ 0.  0. 18.  4.]
+ [ 0.  0.  5. 16.]]
+LC -> confusion_matrix testing:
+ [[2 0 0 0]
+ [0 4 1 1]
+ [0 0 3 0]
+ [0 0 0 2]]
+LC -> F1:
+ [1.         0.57142857 0.75       0.7804878 ]

@@ -19,13 +19,19 @@ def Main(file_nms, n_trials, k_folds, print_best,
             drop=['file_names'], one_hot=False, shuffle=True,
             standard_scale=False, index_col=0)
 
-      i = len(labels) * 9//10
+      i = len(labels) * 8 // 10
       features_test  = features[i:]
       labels_test    = labels[i:]
       features_train = features[:i]
       labels_train   = labels[:i]
 
+      if not any(labels_test == 0): # ensure at least one class zero
+         loc = np.where(labels_train == 0)[0][0]
+         labels_train[loc], labels_test[0] = labels_test[0], labels_train[loc]
+         features_train[loc], features_test[0] = features_test[0], features_train[loc]
+
       np.random.seed() # reseed randomly
+
       clfs = [GridSearchCV(RandomForestClassifier(), rand_forest_parameters,
               cv=k_folds,return_train_score=True, n_jobs=4)\
               .fit(features_train,labels_train) for i in range(n_trials)]
@@ -58,7 +64,8 @@ def Main(file_nms, n_trials, k_folds, print_best,
 
 
       # evaluate final accuracy
-      kfoldCV, test_score, con_matrix, test_con_matrix= evaluate_final_accuracy(
+      kfoldCV, test_score, con_matrix, test_con_matrix =\
+                     evaluate_final_accuracy(
                      file_nm, best_model_param, features_train, labels_train,
                      features_test, labels_test, kfolds=k_folds, seed=seed)
 
@@ -146,9 +153,10 @@ def generate_learning_curve(file_nm, best_params, features_train, labels_train,
    plt.xlabel('Number of Training Examples')
    plt.ylabel('Accuracy')
    plt.legend(loc='lower right')
-   plt.ylim([0.5, 1.0])
-   plt.title('Learning Curve for :'+file_nm)
-   plt.savefig(file_nm+'_figure.png', dpi=300)
+   plt.ylim([np.min(cv_mean-cv_std), 1.0])
+   plt.title('LC: {},\nseed={}'.format(str(best_params), seed))
+   output_name = input()
+   plt.savefig(output_name, dpi=300)
 
 # end of def generate_learning_curve
 
@@ -206,6 +214,13 @@ if __name__=='__main__':
    Seed for random number generator. Seed is set once before reading the file.
    """, dest="SEED")
 
+   parser.add_argument('-D', '--depth', action='store',type=int,default=None,
+   help=\
+   """
+   Prune Depth
+   """, dest="DEPTH")
+
+
    arguments = parser.parse_args()
 
    file_nms = arguments.data_set
@@ -214,15 +229,15 @@ if __name__=='__main__':
    k_folds = arguments.KFOLDNUM
    print_best = arguments.BEST
    print_results = arguments.PRINT
-   #seed = arguments.SEED if arguments.SEED is not None else 582707
    seed = arguments.SEED
+   prune_lvl = arguments.DEPTH
 
    rand_forest_parameters = {
       'n_estimators':(10,15,20,25,50,100),
       'max_features':(None, 'auto'),
       #'criterion':('gini','entropy')
-      'max_depth':(2,3,4,5,6,7,8,9,10)
-      #'max_depth':(4,)
+      #'max_depth':(2,3,4,5,6,7,8,9,10)
+      'max_depth':(prune_lvl,)
    }
 
    if print_params:
