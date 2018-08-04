@@ -25,10 +25,15 @@ def Main(file_nms, n_trials, k_folds, print_best,
       features_train = features[:i]
       labels_train   = labels[:i]
 
-      if not any(labels_test == 0): # ensure at least one class zero
-         loc = np.where(labels_train == 0)[0][0]
-         labels_train[loc], labels_test[0] = labels_test[0], labels_train[loc]
-         features_train[loc], features_test[0] = features_test[0], features_train[loc]
+      if 0 in labels:
+         if all(labels_test != 0): # ensure at least one class zero
+            loc = np.where(labels_train == 0)[0][0]
+            labels_train[loc], labels_test[0] = labels_test[0], labels_train[loc]
+            features_train[loc], features_test[0] = features_test[0], features_train[loc]
+         elif dict(zip(*np.unique(labels_test, return_counts=True)))[0] > 1:
+            i = np.where(labels_test == 0)[0][0]
+            j = np.where(labels_train != 0)[0][0]
+            labels_train[j], labels_test[i] = labels_test[i], labels_train[j]
 
       np.random.seed() # reseed randomly
 
